@@ -13,14 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.beanutils.BeanUtils;
 
 import Models.User;
+import Services.ICartSerive;
 import Services.IUserService;
+import Services.Impl.CartService;
 import Services.Impl.UserSerive;
 
-@WebServlet(urlPatterns = { "/user/account", "/user/wishlist", "/user/history", "/user/cart", 
+@WebServlet(urlPatterns = { "/user/account", "/user/wishlist", "/user/history",
 		"/admin-list", "/admin/user/insert", "/admin/user/update", "/admin/user/delete" })
 public class UserController extends HttpServlet{
 
 	IUserService userService = new UserSerive();
+	ICartSerive cartService = new CartService();
 	
 	private static final long serialVersionUID = 1L;
 
@@ -46,13 +49,7 @@ public class UserController extends HttpServlet{
 			getWishlist(req,resp);
 		}else if(url.contains("/user/history")) {
 			getHistory(req,resp);
-		}else if(url.contains("/user/cart")) {
-			getCart(req,resp);
 		}
-	}
-
-	private void getCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/Views/user/cart.jsp").forward(req, resp);
 	}
 
 	private void getHistory(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

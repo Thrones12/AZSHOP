@@ -141,5 +141,6 @@
 	<script src="templates/js/price-range.js"></script>
 	<script src="templates/js/jquery.prettyPhoto.js"></script>
 	<script src="templates/js/main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </body>
 </html>

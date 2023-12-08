@@ -103,4 +103,26 @@ public class SupplierDAO implements ISupplierDAO{
         return supplier;
 	}
 
+	@Override
+	public int countProduct(int supplier_id) {
+		int result = 0;
+        String query = "SELECT count(*) as count\r\n"
+        		+ "FROM azshop.products\r\n"
+        		+ "WHERE supplier_id = ?;";
+        try {
+        	Connection conn = new DBConnection().getConnection();
+			PreparedStatement ps = conn.prepareStatement(query);
+			
+            ps.setInt(1, supplier_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+            	result = rs.getInt("count");
+            }
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+	}
+
 }

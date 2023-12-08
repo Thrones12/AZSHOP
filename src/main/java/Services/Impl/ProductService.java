@@ -51,8 +51,12 @@ public class ProductService implements IProductService{
 	}
 
 	@Override
+	public List<Product> findByPrice(float start_range, float end_range) {
+		return proDAO.findByPrice(start_range, end_range);
+	}
+
+	@Override
 	public int countByCategory(int category_id) {
 		return proDAO.countByCategory(category_id);
 	}
-
 }

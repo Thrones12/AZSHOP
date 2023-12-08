@@ -15,4 +15,6 @@ public interface ISupplierDAO {
 	void delete(int supplier_id);
 
 	Supplier findById(int supplier_id);
+	
+	int countProduct(int supplier_id);
 }

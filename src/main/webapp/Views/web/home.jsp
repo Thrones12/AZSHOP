@@ -11,6 +11,9 @@
 	<div class="col-sm-9 padding-right">
 		<div class="features_items">
 			<h2 class="title text-center">Sản phẩm</h2>
+			<c:if test="${not empty(message)}">
+				<p style="text-align: center;">${message}</p>
+			</c:if>
 			<!--Product-->
 			<c:forEach var="product" items="${listProduct }">
 				<div class="col-sm-4">
@@ -23,18 +26,8 @@
 									src="templates/images/product/${product.image}" alt="" />
 								</a>
 								<h2>$${product.price }</h2>
-								<p>${product.image }</p>
-								<a href="#" class="btn btn-default add-to-cart"><i
-									class="fa fa-shopping-cart"></i>Add to cart</a>
+								<h4>${product.product_name }</h4>
 							</div>
-						</div>
-						<div class="choose">
-							<ul class="nav nav-pills nav-justified">
-								<li><a href="#"><i class="fa fa-plus-square"></i>Add to
-										wishlist</a></li>
-								<li><a href="#"><i class="fa fa-plus-square"></i>Add to
-										compare</a></li>
-							</ul>
 						</div>
 					</div>
 				</div>

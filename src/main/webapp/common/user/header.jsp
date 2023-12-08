@@ -35,7 +35,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="home"><img src="templates/images/home/logo.png" alt="" /></a>
+							<a href="${pageContext.request.contextPath}/home"><img src="${pageContext.request.contextPath}/templates/images/home/logo.png" alt="" /></a>
 						</div>
 					</div>
 					<div class="col-sm-8">

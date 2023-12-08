@@ -13,5 +13,6 @@ public interface IProductDAO {
 	Product findByName(String product_name);
 	List<Product> findByCategory(int category_id);
 	List<Product> findBySupplier(int supplier_id);
+	List<Product> findByPrice(float start_range, float end_range);
 	int countByCategory(int category_id);
 }

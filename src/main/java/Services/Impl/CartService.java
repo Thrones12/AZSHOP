@@ -7,8 +7,9 @@ import Models.Cart;
 import Services.ICartSerive;
 
 public class CartService implements ICartSerive {
-	
+
 	ICartDAO cartDAO = new CartDAO();
+
 	@Override
 	public List<Cart> findAll() {
 		// TODO Auto-generated method stub
@@ -37,6 +38,11 @@ public class CartService implements ICartSerive {
 	public Cart findById(int cart_id) {
 		// TODO Auto-generated method stub
 		return cartDAO.findById(cart_id);
+	}
+
+	@Override
+	public List<Cart> findByUserID(int user_id) {
+		return cartDAO.findByUserID(user_id);
 	}
 
 }

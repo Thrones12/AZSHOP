@@ -6,9 +6,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.success-message {
+	display: none;
+	padding: 10px;
+	background-color: #4CAF50;
+	color: white;
+	position: fixed;
+	bottom: 15px;
+	right: 15px;
+	z-index: 1;
+}
+</style>
 </head>
 <body>
 	<section>
+
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-9 padding-right">
@@ -17,7 +30,6 @@
 						<div class="col-sm-5">
 							<div class="view-product">
 								<img src="templates/images/product/${product.image }" alt="" />
-								<h3>ZOOM</h3>
 							</div>
 						</div>
 						<div class="col-sm-7">
@@ -26,10 +38,11 @@
 								<h2>${product.product_name }</h2>
 								<p>Mã sản phẩm: ${product.product_id }</p>
 								<span> <span>$${product.price }</span> <label>Quantity:</label>
-									<input type="text" value="3" />
-									<button type="button" class="btn btn-fefault cart">
-										<i class="fa fa-shopping-cart"></i> Add to cart
-									</button>
+									<input name="quantity" type="text" value="1" />
+										<button type="button" class="btn btn-fefault cart"
+											id="addToCart">
+											<i class="fa fa-shopping-cart"></i> Add to cart
+										</button>
 								</span>
 								<p>
 									<b>Tồn kho: </b>${product.stock_quantity }</p>
@@ -225,5 +238,33 @@
 			</div>
 		</div>
 	</section>
+	<script>
+    document.getElementById('addToCart').addEventListener('click', function() {
+        // Lấy giá trị từ thẻ input
+        var quantity = document.getElementsByName('quantity')[0].value;
+
+        // Simulate an asynchronous action, for example, adding to cart
+        setTimeout(function() {
+            // Hiển thị thông báo thành công
+            Swal.fire({
+                icon: 'success',
+                title: 'Đã thêm vào giỏ hàng!',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            // Gửi yêu cầu đến Servlet
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '${pageContext.request.contextPath}/addToCart', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log('Đã nhận phản hồi từ Servlet:', xhr.responseText);
+                    // Xử lý phản hồi từ Servlet nếu cần
+                }
+            };
+            xhr.send('quantity=' + quantity);
+        }, 500); // Simulate a delay of 500 milliseconds (replace with your actual logic)
+    });
+</script>
 </body>
 </html>

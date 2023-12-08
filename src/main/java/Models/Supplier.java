@@ -6,6 +6,13 @@ public class Supplier implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int supplier_id;
 	private String supplier_name;
+	private int count;
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public Supplier() {
 		super();
 	}

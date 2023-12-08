@@ -35,4 +35,9 @@ public class SupplierService implements ISupplierService{
 		return supDAO.findById(supplier_id);
 	}
 
+	@Override
+	public int countProduct(int supplier_id) {
+		return supDAO.countProduct(supplier_id);
+	}
+
 }

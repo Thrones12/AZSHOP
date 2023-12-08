@@ -14,4 +14,6 @@ public interface ISupplierService {
 	 void delete(int supplier_id);
 	    
 	 Supplier findById(int supplier_id);
+	 
+	 int countProduct(int supllier_id);
 }

@@ -1768,7 +1768,9 @@ h2.title {
 
 
 #do_action .total_area {
+  display: flex;
   padding-bottom: 18px !important;
+  flex-direction: column;
 }
 
 #do_action .total_area, #do_action .chose_area {
@@ -1782,13 +1784,13 @@ h2.title {
   float: right;
 }
 
-.total_area ul li {
+.total_area p {
   background:#E6E4DF;
   color: #696763;
   margin-top: 10px;
+  margin-left:20px;
   padding: 7px 20px;
 }
-
 
 .user_option label {
   color: #696763;

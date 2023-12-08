@@ -15,4 +15,6 @@ public interface ICartDAO {
 	void delete(int cart_id);
 
 	Cart findById(int cart_id);
+	
+	List<Cart> findByUserID(int user_id);
 }
