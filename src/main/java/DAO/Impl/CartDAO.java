@@ -45,15 +45,14 @@ public class CartDAO implements ICartDAO {
 	@Override
 	public void insert(Cart cart) {
 		// TODO Auto-generated method stub
-		String query = "INSERT INTO carts (cart_id, user_id, product_id, quantity) VALUES (?, ?, ?, ?)";
+		String query = "INSERT INTO carts (user_id, product_id, quantity) VALUES (?, ?, ?)";
 		try {
 			Connection conn = new DBConnection().getConnection();
 			PreparedStatement ps = conn.prepareStatement(query);
 
-			ps.setInt(1, cart.getCart_id());
-			ps.setInt(2, cart.getUser_id());
-			ps.setInt(3, cart.getProduct_id());
-			ps.setInt(4, cart.getQuantity());
+			ps.setInt(1, cart.getUser_id());
+			ps.setInt(2, cart.getProduct_id());
+			ps.setInt(3, cart.getQuantity());
 			ps.executeUpdate();
 			conn.close();
 		} catch (Exception e) {
@@ -146,6 +145,32 @@ public class CartDAO implements ICartDAO {
 			e.printStackTrace();
 		}
 		return listcart;
+	}
+
+	@Override
+	public Cart findByUserIdAndProductID(int user_id, int product_id) {
+		Cart cart = new Cart();
+		String query = "SELECT * FROM carts WHERE carts.user_id = ? and carts.product_id = ?";
+		try {
+			Connection conn = new DBConnection().getConnection();
+			PreparedStatement ps = conn.prepareStatement(query);
+
+			ps.setInt(1, user_id);
+			ps.setInt(2, product_id);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				cart.setCart_id(rs.getInt("cart_id"));
+				cart.setUser_id(rs.getInt("user_id"));
+				cart.setProduct_id(rs.getInt("product_id"));
+				cart.setQuantity(rs.getInt("quantity"));
+				cart.setProduct(proService.findByID(cart.getProduct_id()));
+				cart.setTotal_price(cart.getQuantity() * cart.getProduct().getPrice());
+			}
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cart;
 	}
 
 }

@@ -17,4 +17,6 @@ public interface ICartSerive {
 	Cart findById(int cart_id);
 	
 	List<Cart> findByUserID(int user_id);
+	
+	Cart findByUserIDAndProductId(int user_id, int product_id);
 }

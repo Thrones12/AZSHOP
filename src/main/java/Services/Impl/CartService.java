@@ -45,4 +45,9 @@ public class CartService implements ICartSerive {
 		return cartDAO.findByUserID(user_id);
 	}
 
+	@Override
+	public Cart findByUserIDAndProductId(int user_id, int product_id) {
+		return cartDAO.findByUserIdAndProductID(user_id, product_id);
+	}
+
 }

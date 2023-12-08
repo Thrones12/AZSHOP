@@ -1,5 +1,6 @@
 package Controllers.User;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -13,20 +14,21 @@ import Models.Cart;
 import Services.ICartSerive;
 import Services.Impl.CartService;
 
-@WebServlet(urlPatterns = { "/user/cart", "/user/update-cart", "/user/delete-cart"})
-public class CartController extends HttpServlet{
+@WebServlet(urlPatterns = { "/user/cart", "/user/update-cart", "/user/delete-cart", "/user/add-cart" })
+public class CartController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	ICartSerive cartService = new CartService();
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String url = req.getRequestURI().toString();
-		if(url.contains("/user/cart")) {
-			getCart(req,resp);
-		} else if(url.contains("/user/update-cart")) {
-			getUpdate(req,resp);
-		} else if(url.contains("/user/delete-cart")) {
-			getDelete(req,resp);
+		if (url.contains("/user/cart")) {
+			getCart(req, resp);
+		} else if (url.contains("/user/update-cart")) {
+			getUpdate(req, resp);
+		} else if (url.contains("/user/delete-cart")) {
+			getDelete(req, resp);
 		}
 	}
 
@@ -47,14 +49,55 @@ public class CartController extends HttpServlet{
 		int user_id = 4;
 		List<Cart> carts = cartService.findByUserID(user_id);
 		req.setAttribute("carts", carts);
-		
+
 		float total = 0;
 		for (Cart cart : carts) {
 			total += cart.getTotal_price();
 		}
-		
-		req.setAttribute("total", total);;
-		
+
+		req.setAttribute("total", total);
+		;
+
 		req.getRequestDispatcher("/Views/user/cart.jsp").forward(req, resp);
+	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String url = req.getRequestURI().toString();
+		if (url.contains("/user/add-cart")) {
+			postAdd(req,resp);
+		}
+	}
+
+	private void postAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// Đọc dữ liệu từ InputStream
+        BufferedReader reader = req.getReader();
+        StringBuilder sb = new StringBuilder();
+        String line;
+
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+
+        String inputString = sb.toString();
+        String[] parts = inputString.split(",");
+        
+        
+        
+        int user_id = 4;
+		int quantity = Integer.parseInt(parts[0].toString());
+		int product_id = Integer.parseInt(parts[1].toString());
+		Cart cart = cartService.findByUserIDAndProductId(user_id, product_id);
+		System.out.println(cart.toString());
+		if (cart.getCart_id() == 0) {
+			Cart new_cart = new Cart(0, user_id, product_id, quantity);
+			cartService.insert(new_cart);
+			resp.sendRedirect(req.getContextPath() + "/product-detail?product_id="+String.valueOf(product_id));	
+		}
+		else {
+			quantity += cart.getQuantity();
+			cart.setQuantity(quantity);
+			cartService.update(cart);
+			resp.sendRedirect(req.getContextPath() + "/product-detail?product_id="+String.valueOf(product_id));
+		}
 	}
 }

@@ -49,15 +49,15 @@
 				<div class="col-sm-8">
 					<div class="shop-menu pull-right">
 						<ul class="nav navbar-nav">
-							<li><a href="user/account"><i class="fa fa-user"></i>
+							<li><a href="${pageContext.request.contextPath}/user/account"><i class="fa fa-user"></i>
 									Tài khoản</a></li>
-							<li><a href="user/wishlist"><i class="fa fa-star"></i>
+							<li><a href="${pageContext.request.contextPath}/user/wishlist"><i class="fa fa-star"></i>
 									Yêu thích</a></li>
-							<li><a href="user/history"><i class="fa fa-crosshairs"></i>
+							<li><a href="${pageContext.request.contextPath}/user/history"><i class="fa fa-crosshairs"></i>
 									Lịch sử</a></li>
-							<li><a href="user/cart"><i class="fa fa-shopping-cart"></i>
+							<li><a href="${pageContext.request.contextPath}/user/cart"><i class="fa fa-shopping-cart"></i>
 									Giỏ hàng</a></li>
-							<li><a href="web/login"><i class="fa fa-lock"></i> Đăng
+							<li><a href="${pageContext.request.contextPath}/web/login"><i class="fa fa-lock"></i> Đăng
 									nhập</a></li>
 						</ul>
 					</div>

@@ -20,7 +20,7 @@ import Services.Impl.CategoryService;
 import Services.Impl.ProductService;
 import Services.Impl.SupplierService;
 
-@WebServlet(urlPatterns = { "/home", "/product-detail", "/addToCart", "/search" })
+@WebServlet(urlPatterns = { "/home", "/product-detail", "/search" })
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ICategoryService cateService = new CategoryService();
@@ -40,17 +40,7 @@ public class HomeController extends HttpServlet {
 			getHome(req, resp);
 		} else if (url.contains("product-detail")) {
 			getProductDetail(req, resp);
-		} else if (url.contains("add-to-cart")) {
-			getAddCart(req, resp);
 		}
-	}
-
-	private void getAddCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		int product_id = Integer.parseInt(req.getParameter("product_id"));
-		int quantity = Integer.parseInt(req.getParameter("quantity"));
-
-		resp.sendRedirect(req.getContextPath() + "/product-detail?product_id=" + product_id);
 	}
 
 	private void getProductDetail(HttpServletRequest req, HttpServletResponse resp)

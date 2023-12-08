@@ -17,4 +17,6 @@ public interface ICartDAO {
 	Cart findById(int cart_id);
 	
 	List<Cart> findByUserID(int user_id);
+	
+	Cart findByUserIdAndProductID(int user_id, int product_id);
 }
