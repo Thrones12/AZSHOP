@@ -10,7 +10,7 @@ public interface IProductService {
 	void Update(Product product);
 	void Delete(int product_id);
 	Product findByID(int product_id);
-	Product findByName(String product_name);
+	List<Product> findByName(String product_name);
 	List<Product> findByCategory(int category_id);
 	List<Product> findBySupplier(int supplier_id);
 	List<Product> findByPrice(float start_range, float end_range);

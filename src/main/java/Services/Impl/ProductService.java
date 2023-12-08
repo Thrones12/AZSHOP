@@ -35,9 +35,8 @@ public class ProductService implements IProductService{
 	}
 
 	@Override
-	public Product findByName(String product_name) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Product> findByName(String product_name) {
+		return proDAO.findByName(product_name);
 	}
 
 	@Override
