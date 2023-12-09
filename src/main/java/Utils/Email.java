@@ -25,8 +25,8 @@ public class Email {
 		boolean test = false;
 		
 		String toEmail = user.getEmail();
-		String fromEmail = "21110252@student.hcmute.edu.vn";
-		String password = "NamVuNgoc140113";
+		String fromEmail = "vunam3002931@gmail.com";
+		String password = "ydnh imuu kyox xjzt";
 		
 		try {
 			Properties pr = configEmail(new Properties());
@@ -61,8 +61,8 @@ public class Email {
 	public boolean EmailSend(User user) {
 		boolean test = false;
 		String toEmail = user.getEmail();
-		String fromEmail = "21110252@student.hcmute.edu.vn";
-		String password = "NamVuNgoc140113";
+		String fromEmail = "vunam3002931@gmail.com";
+		String password = "ydnh imuu kyox xjzt";
 		
 		try {
 			// your host email smtp server details

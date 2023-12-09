@@ -143,7 +143,6 @@ public class UserDAO implements IUserDAO {
 
 	@Override
 	public boolean checkExistEmail(String email) {
-		System.out.println(email);
 		boolean dup = false;
 		String sql = "Select * from users where email=?";
 		try {
@@ -151,7 +150,7 @@ public class UserDAO implements IUserDAO {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
+			if(rs.next()) {
 				dup = true;
 			}
 			ps.close();

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="/common/taglib.jsp"%>
 <header id="header">
 	<!--header-->
 	<div class="header_top">
@@ -57,8 +58,20 @@
 									Lịch sử</a></li>
 							<li><a href="${pageContext.request.contextPath}/user/cart"><i class="fa fa-shopping-cart"></i>
 									Giỏ hàng</a></li>
-							<li><a href="${pageContext.request.contextPath}/user/web/login"><i class="fa fa-lock"></i> Đăng
-									nhập</a></li>
+							<c:choose>
+								<c:when test="${empty sessionScope.account}">
+									<!-- Chưa đăng nhập -->
+									<li><a
+										href="${pageContext.request.contextPath}/user/web/login"><i
+											class="fa fa-lock"></i> Đăng nhập</a></li>
+								</c:when>
+								<c:otherwise>
+									<!-- Đã đăng nhập -->
+									<li><a
+										href="${pageContext.request.contextPath}/user/web/logout"><i
+											class="fa fa-unlock"></i> Đăng xuất</a></li>
+								</c:otherwise>
+							</c:choose>
 						</ul>
 					</div>
 				</div>
