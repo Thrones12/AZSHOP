@@ -11,7 +11,7 @@
 	<c:if test="${message!=null}">
 		<span>${message}</span>
 	</c:if>
-	<c:if test="${erroe!=null}">
+	<c:if test="${error!=null}">
 		<span>${error}</span>
 	</c:if>
 

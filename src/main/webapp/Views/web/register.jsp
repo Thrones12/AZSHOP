@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
+<title>Sign up</title>
 </head>
 <body>
 	<section id="form">
@@ -15,20 +15,21 @@
 				<c:if test="${not empty message}">
 					<div class="alert laert-success">${message}</div>
 				</c:if>
+				<c:if test="${not empty error}">
+					<div class="alert laert-success">${error}</div>
+				</c:if>
 			</div>
+		
 			<div class="row">
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form">
 						<!--login form-->
-						<h2>Login to your account</h2>
-						<form action="login" method="post">
+						<h2>Register new account</h2>
+						<form action="register" method="post">
 							<input type="text" placeholder="User Name" id="username" name="username" /> 
+							<input type="text" placeholder="Email" id="email" name="email" /> 
 							<input type="text" placeholder="Password" id="password" name="password" />
-							<span> 
-								<input type="checkbox" class="checkbox" name="remember"> Keep me signed in
-							</span>
-							<h5><a href="<c:url value='/user/web/forgotpass'></c:url>">Forgot password</a></h5>
-							<button type="submit" class="btn btn-default">Login</button>
+							<button type="submit" class="btn btn-default">Sign up</button>
 						</form>
 					</div>
 					<!--/login form-->
