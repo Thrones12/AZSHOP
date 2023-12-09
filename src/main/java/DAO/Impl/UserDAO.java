@@ -148,13 +148,13 @@ public class UserDAO implements IUserDAO {
 		try {
 			Connection conn = new DBConnection().getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
-			 ps.setString(1, email);
-			 if(rs.next()) {
-				 dup = true;
-			 }
-			 ps.close();
-			 conn.close();
+			if(rs.next()) {
+				dup = true;
+			}
+			ps.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -167,14 +167,14 @@ public class UserDAO implements IUserDAO {
 		String sql = "Select * from users where username=?";
 		try {
 			Connection conn = new DBConnection().getConnection();
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = conn.prepareStatement(sql); 
+			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
-			 ps.setString(1, username);
-			 if(rs.next()) {
-				 dup = true;
-			 }
-			 ps.close();
-			 conn.close();
+			if(rs.next()) {
+				dup = true;
+			}
+			ps.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

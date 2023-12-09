@@ -22,17 +22,24 @@
 						<!--login form-->
 						<h2>Login to your account</h2>
 						<form action="login" method="post">
-							<input type="text" placeholder="User Name" id="username" name="username" /> 
-							<input type="text" placeholder="Password" id="password" name="password" />
-							<span> 
-								<input type="checkbox" class="checkbox" name="remember"> Keep me signed in
+							<input type="text" placeholder="User Name" id="username"
+								name="username" /> <input type="password"
+								placeholder="Password" id="password" name="password" /> <span>
+								<input type="checkbox" class="checkbox" name="remember">
+								Keep me signed in
 							</span>
-							<h5><a href="<c:url value='/user/web/forgotpass'></c:url>">Forgot password</a></h5>
+							<h5>
+								<a href="<c:url value='/user/web/forgotpass'></c:url>">Forgot
+									password</a>
+							</h5>
 							<button type="submit" class="btn btn-default">Login</button>
+							<button type="button" class="btn btn-default"
+								onclick="window.location.href='<c:url value='/user/web/register'></c:url>'">
+								Register</button>
 						</form>
 					</div>
 					<!--/login form-->
-					</div>
+				</div>
 			</div>
 		</div>
 	</section>
