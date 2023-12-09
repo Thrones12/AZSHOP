@@ -15,6 +15,11 @@ public class ProductService implements IProductService{
 	}
 
 	@Override
+	public List<Product> findTop3(int offset) {
+		return proDAO.findTop3(offset);
+	}
+	
+	@Override
 	public void Insert(Product product) {
 		proDAO.Insert(product);
 	}
@@ -57,5 +62,20 @@ public class ProductService implements IProductService{
 	@Override
 	public int countByCategory(int category_id) {
 		return proDAO.countByCategory(category_id);
+	}
+
+	@Override
+	public List<Product> findTop3ByCategory(int category_id, int offset) {
+		return proDAO.findTop3ByCategory(category_id, offset);
+	}
+
+	@Override
+	public List<Product> findTop3BySupplier(int supplier_id, int offset) {
+		return proDAO.findTop3BySupplier(supplier_id, offset);
+	}
+
+	@Override
+	public List<Product> findTop3ByPrice(float start_range, float end_range, int offset) {
+		return proDAO.findTop3ByPrice(start_range, end_range, offset);
 	}
 }

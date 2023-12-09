@@ -134,7 +134,7 @@
 	</section>
 
 	<%@ include file="/common/web/footer.jsp"%>
-
+	
 	<script src="templates/js/jquery.js"></script>
 	<script src="templates/js/bootstrap.min.js"></script>
 	<script src="templates/js/jquery.scrollUp.min.js"></script>
@@ -142,5 +142,6 @@
 	<script src="templates/js/jquery.prettyPhoto.js"></script>
 	<script src="templates/js/main.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </body>
 </html>

@@ -15,4 +15,9 @@ public interface IProductService {
 	List<Product> findBySupplier(int supplier_id);
 	List<Product> findByPrice(float start_range, float end_range);
 	int countByCategory(int category_id);
+
+	List<Product> findTop3(int offset);
+	List<Product> findTop3ByCategory(int category_id, int offset);
+	List<Product> findTop3BySupplier(int supplier_id, int offset);
+	List<Product> findTop3ByPrice(float start_range, float end_range, int offset);
 }

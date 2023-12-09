@@ -57,7 +57,7 @@
 									Lịch sử</a></li>
 							<li><a href="${pageContext.request.contextPath}/user/cart"><i class="fa fa-shopping-cart"></i>
 									Giỏ hàng</a></li>
-							<li><a href="${pageContext.request.contextPath}/web/login"><i class="fa fa-lock"></i> Đăng
+							<li><a href="${pageContext.request.contextPath}/user/web/login"><i class="fa fa-lock"></i> Đăng
 									nhập</a></li>
 						</ul>
 					</div>

@@ -36,28 +36,24 @@
 			</div>
 		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
 	<script>
 		$(window).scroll(
 				function() {
 					if ($(window).scrollTop() + $(window).height() >= $(
 							document).height()) {
+						alert("wtf");
 						loadAjax();
 					}
 				});
 
 		function loadAjax() {
+			alert("Se");
 			var amount = $(".productAjax").length;
 			$.ajax({
 				url : "/AZSHOP/loadAjax",
 				type : "get",
 				data : {
-					exists : amount,
-					category_id: ${category_id},
-					supplier_id: ${supplier_id},
-					start_range: ${start_range},
-					end_range  : ${end_range}
+					exists : amount
 				},
 				success : function(data) {
 					$("#content").append(data);
@@ -68,5 +64,6 @@
 			});
 		}
 	</script>
+
 </body>
 </html>

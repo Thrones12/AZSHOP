@@ -56,12 +56,5 @@
 			</div>
 		</div>
 		<!--/price-range-->
-
-
-		<div class="shipping text-center" style="margin-bottom:80px">
-			<!--shipping-->
-			<img src="templates/images/home/shipping.jpg" alt="" />
-		</div>
-		<!--/shipping-->
 	</div>
 </div>

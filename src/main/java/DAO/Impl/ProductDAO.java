@@ -275,4 +275,131 @@ public class ProductDAO implements IProductDAO {
 		}
 	}
 
+	@Override
+	public List<Product> findTop3(int offset) {
+		List<Product> list_pro = new ArrayList<Product>();
+		String query = "SELECT * FROM products \r\n"
+				+ "ORDER BY product_id ASC \r\n"
+				+ "LIMIT 3 OFFSET ?;";
+		try {
+			conn = new DBConnection().getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, offset);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Product pro = new Product();
+				pro.setProduct_id(rs.getInt("product_id"));
+				pro.setProduct_name(rs.getString("product_name"));
+				pro.setDescription(rs.getString("description"));
+				pro.setPrice(rs.getInt("price"));
+				pro.setImage(rs.getString("image"));
+				pro.setCategory_id(rs.getInt("category_id"));
+				pro.setSupplier_id(rs.getInt("supplier_id"));
+				pro.setStock_quantity(rs.getInt("stock_quantity"));
+				pro.setSold_quantity(rs.getInt("sold_quantity"));
+				list_pro.add(pro);
+			}
+			conn.close();
+			return list_pro;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	
+	@Override
+	public List<Product> findTop3ByCategory(int category_id, int offset) {
+		List<Product> list_pro = new ArrayList<Product>();
+		String query = "SELECT * FROM products WHERE category_id=? ORDER BY product_id ASC LIMIT 3 OFFSET ?;";
+		try {
+			conn = new DBConnection().getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, category_id);
+			ps.setInt(2, offset);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Product pro = new Product();
+				pro.setProduct_id(rs.getInt("product_id"));
+				pro.setProduct_name(rs.getString("product_name"));
+				pro.setDescription(rs.getString("description"));
+				pro.setPrice(rs.getFloat("price"));
+				pro.setImage(rs.getString("image"));
+				pro.setCategory_id(rs.getInt("category_id"));
+				pro.setSupplier_id(rs.getInt("supplier_id"));
+				pro.setStock_quantity(rs.getInt("stock_quantity"));
+				pro.setSold_quantity(rs.getInt("sold_quantity"));
+				list_pro.add(pro);
+			}
+			conn.close();
+			return list_pro;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<Product> findTop3BySupplier(int supplier_id, int offset) {
+		List<Product> list_pro = new ArrayList<Product>();
+		String query = "SELECT * FROM products WHERE supplier_id=? ORDER BY product_id ASC LIMIT 3 OFFSET ?;";
+		try {
+			conn = new DBConnection().getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, supplier_id);
+			ps.setInt(2, offset);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Product pro = new Product();
+				pro.setProduct_id(rs.getInt("product_id"));
+				pro.setProduct_name(rs.getString("product_name"));
+				pro.setDescription(rs.getString("description"));
+				pro.setPrice(rs.getFloat("price"));
+				pro.setImage(rs.getString("image"));
+				pro.setCategory_id(rs.getInt("category_id"));
+				pro.setSupplier_id(rs.getInt("supplier_id"));
+				pro.setStock_quantity(rs.getInt("stock_quantity"));
+				pro.setSold_quantity(rs.getInt("sold_quantity"));
+				list_pro.add(pro);
+			}
+			conn.close();
+			return list_pro;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<Product> findTop3ByPrice(float start_range, float end_range, int offset) {
+		List<Product> list_pro = new ArrayList<Product>();
+		String query = "SELECT * FROM azshop.products WHERE price >= ? and price <= ? ORDER BY product_id ASC LIMIT 3 OFFSET ?;";
+		try {
+			conn = new DBConnection().getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setFloat(1, start_range);
+			ps.setFloat(2, end_range);
+			ps.setInt(3, offset);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Product pro = new Product();
+				pro.setProduct_id(rs.getInt("product_id"));
+				pro.setProduct_name(rs.getString("product_name"));
+				pro.setDescription(rs.getString("description"));
+				pro.setPrice(rs.getFloat("price"));
+				pro.setImage(rs.getString("image"));
+				pro.setCategory_id(rs.getInt("category_id"));
+				pro.setSupplier_id(rs.getInt("supplier_id"));
+				pro.setStock_quantity(rs.getInt("stock_quantity"));
+				pro.setSold_quantity(rs.getInt("sold_quantity"));
+				list_pro.add(pro);
+			}
+			conn.close();
+			return list_pro;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

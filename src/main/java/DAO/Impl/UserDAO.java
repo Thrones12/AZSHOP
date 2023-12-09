@@ -20,7 +20,7 @@ public class UserDAO implements IUserDAO {
 			Connection conn = new DBConnection().getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				User model = new User();
 				model.setUserID(rs.getInt("user_id"));
 				model.setUserName(rs.getString("username"));
@@ -44,7 +44,7 @@ public class UserDAO implements IUserDAO {
 		try {
 			Connection conn = new DBConnection().getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			
+
 			ps.setString(1, model.getUserName());
 			ps.setString(2, model.getPassword());
 			ps.setString(3, model.getEmail());
@@ -66,7 +66,7 @@ public class UserDAO implements IUserDAO {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				model.setUserID(rs.getInt("user_id"));
 				model.setUserName(rs.getString("username"));
 				model.setPassword(rs.getString("password"));
@@ -88,7 +88,7 @@ public class UserDAO implements IUserDAO {
 		try {
 			Connection conn = new DBConnection().getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			
+
 			ps.setString(1, model.getUserName());
 			ps.setString(2, model.getPassword());
 			ps.setString(3, model.getEmail());
@@ -100,7 +100,7 @@ public class UserDAO implements IUserDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -109,14 +109,14 @@ public class UserDAO implements IUserDAO {
 		try {
 			Connection conn = new DBConnection().getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			
+
 			ps.setInt(1, id);
 			ps.executeUpdate();
 			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -125,36 +125,37 @@ public class UserDAO implements IUserDAO {
 		try {
 			Connection conn = new DBConnection().getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			
+
 			ps.setString(1, user.getUserName());
 			ps.setString(2, user.getPassword());
 			ps.setString(3, user.getEmail());
 			ps.setString(4, user.getCode());
 			ps.setInt(5, user.getRole());
 			ps.setInt(6, user.getStatus());
-			
+
 			ps.executeUpdate();
 			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
 	public boolean checkExistEmail(String email) {
+		System.out.println(email);
 		boolean dup = false;
 		String sql = "Select * from users where email=?";
 		try {
 			Connection conn = new DBConnection().getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
-			 ps.setString(1, email);
-			 if(rs.next()) {
-				 dup = true;
-			 }
-			 ps.close();
-			 conn.close();
+			if (rs.next()) {
+				dup = true;
+			}
+			ps.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -169,12 +170,12 @@ public class UserDAO implements IUserDAO {
 			Connection conn = new DBConnection().getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
-			 ps.setString(1, username);
-			 if(rs.next()) {
-				 dup = true;
-			 }
-			 ps.close();
-			 conn.close();
+			ps.setString(1, username);
+			if (rs.next()) {
+				dup = true;
+			}
+			ps.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -187,7 +188,7 @@ public class UserDAO implements IUserDAO {
 		try {
 			Connection conn = new DBConnection().getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			
+
 			ps.setInt(1, user.getStatus());
 			ps.setString(2, user.getEmail());
 			ps.executeUpdate();
@@ -195,7 +196,7 @@ public class UserDAO implements IUserDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -207,7 +208,7 @@ public class UserDAO implements IUserDAO {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				model.setUserID(rs.getInt("user_id"));
 				model.setUserName(rs.getString("username"));
 				model.setPassword(rs.getString("password"));
