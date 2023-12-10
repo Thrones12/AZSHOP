@@ -164,26 +164,30 @@
             alert('Vui lòng chọn phương thức thanh toán.');
             return false;
         }
-
-        // Ajax request to submit data
-        $.ajax({
-            url: '/AZSHOP/user/addbill',
-            type: 'GET',
-            data: {
-                // your data here
-                total_amount: ${total_amount},
-                receiver : receiverName,
-                phone : receiverPhone,
-                address : receiverAddress 
-            },
-            success: function (data) {
-                // Process the success response
-                window.location.href = '/AZSHOP/user/thanks';
-            },
-            error: function (xhr) {
-                // Handle the error if needed
-            }
-        });
+		if (paymentMethodCard){
+            window.location.href = '/AZSHOP/user/paymentMethodCart';
+		}
+		else{
+	        // Ajax request to submit data
+	        $.ajax({
+	            url: '/AZSHOP/user/addbill',
+	            type: 'GET',
+	            data: {
+	                // your data here
+	                total_amount: ${total_amount},
+	                receiver : receiverName,
+	                phone : receiverPhone,
+	                address : receiverAddress 
+	            },
+	            success: function (data) {
+	                // Process the success response
+	                window.location.href = '/AZSHOP/user/thanks';
+	            },
+	            error: function (xhr) {
+	                // Handle the error if needed
+	            }
+	        });
+		}
 
         return true;
     }

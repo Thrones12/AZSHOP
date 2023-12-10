@@ -44,4 +44,14 @@ public class ViewedProductService implements IViewedProductService {
 		return vpDAO.findById(viewedProduct_id);
 	}
 
+	@Override
+	public List<ViewedProduct> findByUserId(int user_id) {
+		return vpDAO.findByUserId(user_id);
+	}
+
+	@Override
+	public void CleanTable() {
+		vpDAO.CleanTable();
+	}
+
 }

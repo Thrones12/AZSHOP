@@ -111,4 +111,43 @@ public class ViewedProductDAO implements IViewedProductDAO{
 		return model;
 	}
 
+	@Override
+	public List<ViewedProduct> findByUserId(int user_id) {
+		String sql = "Select * from viewed_products where user_id = ? LIMIT 12";
+		List<ViewedProduct> lists = new ArrayList<ViewedProduct>();
+		try {
+			Connection conn = new DBConnection().getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, user_id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				ViewedProduct model = new ViewedProduct();
+				model.setViewedID(rs.getInt("viewed_id"));
+				model.setUserID(rs.getInt("user_id"));
+				model.setProductID(rs.getInt("product_id"));
+				model.setViewdate(rs.getDate("view_date"));
+				lists.add(model);
+			}
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return lists;
+	}
+
+	@Override
+	public void CleanTable() {
+		String sql = "delete from viewed_products where user_id = 0";
+		try {
+			Connection conn = new DBConnection().getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.executeUpdate();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

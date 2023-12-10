@@ -72,7 +72,7 @@
 												<div class="single-products">
 													<div class="productinfo text-center">
 														<a
-															href="<c:url value='/product-detail?product_id=${i.product_id}'></c:url>">>
+															href="<c:url value='/product-detail?product_id=${i.product_id}'></c:url>">
 															<img style="width: auto; height: 134px"
 															src="templates/images/product/${i.image }" alt="" />
 														</a>
@@ -95,7 +95,7 @@
 													<div class="single-products">
 														<div class="productinfo text-center">
 															<a
-																href="<c:url value='/product-detail?product_id=${i.product_id}'></c:url>">>>
+																href="<c:url value='/product-detail?product_id=${i.product_id}'></c:url>">
 																<img style="width: auto; height: 134px"
 																src="templates/images/product/${i.image }" alt="" />
 															</a>

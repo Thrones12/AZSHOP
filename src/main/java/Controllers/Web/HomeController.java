@@ -10,15 +10,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Models.Product;
 import Models.Supplier;
+import Models.User;
+import Models.ViewedProduct;
 import Services.ICategoryService;
 import Services.IProductService;
 import Services.ISupplierService;
+import Services.IViewedProductService;
 import Services.Impl.CategoryService;
 import Services.Impl.ProductService;
 import Services.Impl.SupplierService;
+import Services.Impl.ViewedProductService;
 
 @WebServlet(urlPatterns = { "/home", "/product-detail", "/search", "/loadAjax" })
 public class HomeController extends HttpServlet {
@@ -26,6 +31,7 @@ public class HomeController extends HttpServlet {
 	private ICategoryService cateService = new CategoryService();
 	private IProductService proService = new ProductService();
 	private ISupplierService supplierService = new SupplierService();
+	private IViewedProductService vpService = new ViewedProductService();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -74,8 +80,8 @@ public class HomeController extends HttpServlet {
 					+ "							<div class=\"single-products\">\r\n"
 					+ "								<div class=\"productinfo text-center\">\r\n"
 					+ "									<a\r\n"
-					+ "										href=\"<c:url value='/product-detail?product_id="
-					+ product.getProduct_id() + "'></c:url>\">\r\n"
+					+ "										href=\"/AZSHOP/product-detail?product_id="
+					+ product.getProduct_id() + "\">\r\n"
 					+ "										<img style=\"width: 270px; height: 270px\"\r\n"
 					+ "										src=\"templates/images/product/" + product.getImage()
 					+ "\" alt=\"\" />\r\n" + "									</a>\r\n"
@@ -125,11 +131,49 @@ public class HomeController extends HttpServlet {
 
 		req.setAttribute("same_supplier_active", matrix_same_supplier.get(0));
 		req.setAttribute("same_supplier", matrix_same_supplier.subList(1, matrix_same_supplier.size()));
+		
+		// Handle viewed product
+		HttpSession session = req.getSession();
+		User u = (User) session.getAttribute("account");
+		int user_id = 0;
+		if (u != null) {
+			user_id = u.getUserID();
+		}
+		List<ViewedProduct> viewedproducts = vpService.findByUserId(user_id);
+		boolean check = true;
+		ViewedProduct vp = new ViewedProduct();
+		vp.setUserID(user_id);
+		vp.setProductID(product.getProduct_id());
+		vp.setViewdate(new java.sql.Date(new java.util.Date().getTime()));
+		
+		
+		List<Product> products_viewed = new ArrayList<>();
+		for (ViewedProduct item : viewedproducts) {
+			products_viewed.add(proService.findByID(item.getProductID()));
+			if (item.getProductID() == vp.getProductID())
+				check = false;
+		}
+		if (check) {
+			vpService.insert(vp);
+			products_viewed.add(proService.findByID(vp.getProductID()));
+		}
+		List<List<Product>> matrix_same_vp = new ArrayList<>();
+
+		for (int i = 0; i < products_viewed.size(); i += 3) {
+			int endIndex = Math.min(i + 3, products_viewed.size());
+			List<Product> row = new ArrayList<>(products_viewed.subList(i, endIndex));
+			matrix_same_vp.add(row);
+		}
+
+		req.setAttribute("viewed_product_active", matrix_same_vp.get(0));
+		req.setAttribute("viewed_product", matrix_same_vp.subList(1, matrix_same_vp.size()));
 
 		req.getRequestDispatcher("Views/web/product-detail.jsp").forward(req, resp);
 	}
 
 	private void getHome(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		vpService.CleanTable();
+		
 		List<Product> list_pro;
 		int category_id = 0;
 		int supplier_id = 0;

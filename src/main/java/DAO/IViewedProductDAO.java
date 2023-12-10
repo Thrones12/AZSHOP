@@ -14,4 +14,8 @@ public interface IViewedProductDAO {
 	void delete(int viewedProduct_id);
 
 	ViewedProduct findById(int viewedProduct_id);
+	
+	List<ViewedProduct> findByUserId(int user_id);
+	
+	void CleanTable();
 }
