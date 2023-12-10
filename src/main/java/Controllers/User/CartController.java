@@ -9,8 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Models.Cart;
+import Models.User;
 import Services.ICartSerive;
 import Services.Impl.CartService;
 
@@ -46,7 +48,9 @@ public class CartController extends HttpServlet {
 	}
 
 	private void getCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		int user_id = 4;
+		HttpSession session = req.getSession();
+		User u = (User) session.getAttribute("account");
+		int user_id = u.getUserID();
 		List<Cart> carts = cartService.findByUserID(user_id);
 		req.setAttribute("carts", carts);
 
@@ -82,12 +86,12 @@ public class CartController extends HttpServlet {
         String[] parts = inputString.split(",");
         
         
-        
-        int user_id = 4;
+        HttpSession session = req.getSession();
+		User u = (User) session.getAttribute("account");
+		int user_id = u.getUserID();
 		int quantity = Integer.parseInt(parts[0].toString());
 		int product_id = Integer.parseInt(parts[1].toString());
 		Cart cart = cartService.findByUserIDAndProductId(user_id, product_id);
-		System.out.println(cart.toString());
 		if (cart.getCart_id() == 0) {
 			Cart new_cart = new Cart(0, user_id, product_id, quantity);
 			cartService.insert(new_cart);

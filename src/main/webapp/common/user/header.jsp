@@ -45,38 +45,49 @@
 					<div class="logo pull-left">
 						<a href="${pageContext.request.contextPath}/home"><img
 							src="${pageContext.request.contextPath}/templates/images/home/logo.png"
-							alt="error" /></a>
+							alt="asda" /></a>
 					</div>
 				</div>
 				<div class="col-sm-8">
 					<div class="shop-menu pull-right">
 						<ul class="nav navbar-nav">
-							<li><a
-								href="${pageContext.request.contextPath}/user/account"><i
-									class="fa fa-user"></i> Tài khoản</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/user/wishlist"><i
-									class="fa fa-star"></i> Yêu thích</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/user/history"><i
-									class="fa fa-crosshairs"></i> Lịch sử</a></li>
-							<li><a href="${pageContext.request.contextPath}/user/cart"><i
-									class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
 							<c:choose>
 								<c:when test="${empty sessionScope.account}">
 									<!-- Chưa đăng nhập -->
 									<li><a
-										href="${pageContext.request.contextPath}/user/web/login"><i
+										href="${pageContext.request.contextPath}/user/login"><i
+											class="fa fa-user"></i> Tài khoản</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/user/login"><i
+											class="fa fa-star"></i> Yêu thích</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/user/login"><i
+											class="fa fa-crosshairs"></i> Lịch sử</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/user/login"><i
+											class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/user/login"><i
 											class="fa fa-lock"></i> Đăng nhập</a></li>
 								</c:when>
 								<c:otherwise>
 									<!-- Đã đăng nhập -->
 									<li><a
-										href="${pageContext.request.contextPath}/user/web/logout"><i
+										href="${pageContext.request.contextPath}/user/account"><i
+											class="fa fa-user"></i> Tài khoản</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/user/wishlist"><i
+											class="fa fa-star"></i> Yêu thích</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/user/history"><i
+											class="fa fa-crosshairs"></i> Lịch sử</a></li>
+									<li><a href="${pageContext.request.contextPath}/user/cart"><i
+											class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/user/logout"><i
 											class="fa fa-unlock"></i> Đăng xuất</a></li>
 								</c:otherwise>
 							</c:choose>
-
 						</ul>
 					</div>
 				</div>
@@ -85,34 +96,5 @@
 	</div>
 	<!--/header-middle-->
 
-	<div class="header-bottom">
-		<!--header-bottom-->
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-9">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse"
-							data-target=".navbar-collapse">
-							<span class="sr-only">Toggle navigation</span> <span
-								class="icon-bar"></span> <span class="icon-bar"></span> <span
-								class="icon-bar"></span>
-						</button>
-					</div>
-				</div>
-				<div class="col-sm-3">
-					<div class="search_box pull-right">
-						<form action="${pageContext.request.contextPath}/search"
-							method="post">
-							<input name="searchInput"
-								style="width: 255px; background-position: 230px;" type="text"
-								placeholder="Search" />
-							<button type="submit" style="display: none;"></button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!--/header-bottom-->
 </header>
 <!--/header-->

@@ -43,32 +43,48 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<div class="logo pull-left">
-						<a href="home"><img src="templates/images/home/logo.png"
+						<a href="${pageContext.request.contextPath}/home"><img
+							src="${pageContext.request.contextPath}/templates/images/home/logo.png"
 							alt="" /></a>
 					</div>
 				</div>
 				<div class="col-sm-8">
 					<div class="shop-menu pull-right">
 						<ul class="nav navbar-nav">
-							<li><a href="${pageContext.request.contextPath}/user/account"><i class="fa fa-user"></i>
-									Tài khoản</a></li>
-							<li><a href="${pageContext.request.contextPath}/user/wishlist"><i class="fa fa-star"></i>
-									Yêu thích</a></li>
-							<li><a href="${pageContext.request.contextPath}/user/history"><i class="fa fa-crosshairs"></i>
-									Lịch sử</a></li>
-							<li><a href="${pageContext.request.contextPath}/user/cart"><i class="fa fa-shopping-cart"></i>
-									Giỏ hàng</a></li>
 							<c:choose>
 								<c:when test="${empty sessionScope.account}">
 									<!-- Chưa đăng nhập -->
 									<li><a
-										href="${pageContext.request.contextPath}/user/web/login"><i
+										href="${pageContext.request.contextPath}/user/login"><i
+											class="fa fa-user"></i> Tài khoản</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/user/login"><i
+											class="fa fa-star"></i> Yêu thích</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/user/login"><i
+											class="fa fa-crosshairs"></i> Lịch sử</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/user/login"><i
+											class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/user/login"><i
 											class="fa fa-lock"></i> Đăng nhập</a></li>
 								</c:when>
 								<c:otherwise>
 									<!-- Đã đăng nhập -->
 									<li><a
-										href="${pageContext.request.contextPath}/user/web/logout"><i
+										href="${pageContext.request.contextPath}/user/account"><i
+											class="fa fa-user"></i> Tài khoản</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/user/wishlist"><i
+											class="fa fa-star"></i> Yêu thích</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/user/history"><i
+											class="fa fa-crosshairs"></i> Lịch sử</a></li>
+									<li><a href="${pageContext.request.contextPath}/user/cart"><i
+											class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/user/logout"><i
 											class="fa fa-unlock"></i> Đăng xuất</a></li>
 								</c:otherwise>
 							</c:choose>

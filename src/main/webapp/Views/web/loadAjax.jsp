@@ -36,34 +36,6 @@
 			</div>
 		</div>
 	</div>
-	<script>
-		$(window).scroll(
-				function() {
-					if ($(window).scrollTop() + $(window).height() >= $(
-							document).height()) {
-						alert("wtf");
-						loadAjax();
-					}
-				});
-
-		function loadAjax() {
-			alert("Se");
-			var amount = $(".productAjax").length;
-			$.ajax({
-				url : "/AZSHOP/loadAjax",
-				type : "get",
-				data : {
-					exists : amount
-				},
-				success : function(data) {
-					$("#content").append(data);
-				},
-				error : function(xhr) {
-					// Xử lý lỗi nếu cần
-				}
-			});
-		}
-	</script>
 
 </body>
 </html>

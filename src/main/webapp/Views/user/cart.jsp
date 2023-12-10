@@ -75,8 +75,7 @@
 							Giá trị đơn hàng: <span>$${total }</span>
 						</p>
 						<a style="font-size: 20px" class="btn btn-default check_out"
-							href="${pageContext.request.contextPath}/user/checkout">Check
-							Out</a>
+							href="${pageContext.request.contextPath}/user/checkout">Đặt hàng</a>
 					</div>
 				</div>
 			</div>

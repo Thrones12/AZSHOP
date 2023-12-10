@@ -3,6 +3,7 @@ package DAO;
 import java.util.List;
 
 import Models.Bill;
+import Models.BillDetail;
 
 public interface IBillDAO {
 
@@ -15,4 +16,6 @@ public interface IBillDAO {
 	 void delete(int bill_id);
 	    
 	 Bill findById(int bill_id);
+	 
+	 Bill findNewestBillByUserID(int user_id);
 }
