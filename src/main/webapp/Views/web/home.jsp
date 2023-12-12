@@ -8,36 +8,48 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="col-sm-9 padding-right">
-		<div class="features_items">
-			<h2 class="title text-center">Sản phẩm</h2>
-			<c:if test="${not empty(message)}">
-				<p style="text-align: center;">${message}</p>
-			</c:if>
-			<div id="content">
-				<!--Product-->
-				<c:forEach var="product" items="${listProduct }">
-					<div class="productAjax col-sm-4">
-						<div class="product-image-wrapper">
-							<div class="single-products">
-								<div class="productinfo text-center">
-									<a
-										href="<c:url value='/product-detail?product_id=${product.product_id}'></c:url>">
-										<img style="width: 270px; height: 270px"
-										src="templates/images/product/${product.image}" alt="" />
-									</a>
-									<h2>$${product.price }</h2>
-									<h4>${product.product_name }</h4>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-9 padding-right">
+					<div class="features_items">
+						<h2 class="title text-center">Sản phẩm</h2>
+						<c:if test="${not empty(message)}">
+							<p style="text-align: center;">${message}</p>
+						</c:if>
+						<!--Product-->
+						<div id="content">
+							<c:forEach var="product" items="${products }">
+								<div class="productAjax col-sm-4">
+									<div class=" product-image-wrapper single-products">
+										<div class="productinfo text-center">
+											<a
+												href="<c:url value='/product-detail?product_id=${product.product_id}'></c:url>">
+												<img style="width: auto; height: 134px"
+												src="templates/images/product/${product.image }" alt="" />
+											</a>
+											<h2>$${product.price }</h2>
+											<p>${product.product_name }</p>
+											<button type="button" class="btn btn-default add-to-cart"
+												id="addToCart"
+												onclick="clickToAddCart(${user_id}, ${product.product_id}, 1)">
+												<i class="fa fa-shopping-cart"></i>Add to cart
+											</button>
+
+										</div>
+									</div>
 								</div>
-							</div>
+							</c:forEach>
 						</div>
 					</div>
-				</c:forEach>
+				</div>
 			</div>
 		</div>
-	</div>
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+	</section>
+
+
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script>
 		$(window).scroll(
 				function() {
@@ -67,6 +79,46 @@
 				}
 			});
 		}
+	</script>
+	<script>
+		function clickToAddCart(u_id, p_id, q) {
+			var user_id = u_id;
+			if (user_id === 0) {
+		           // Nếu user_id không tồn tại, chuyển hướng đến trang /user/login
+		           window.location.href = '${pageContext.request.contextPath}/user/login';
+		        }else{
+			// Lấy giá trị từ thẻ input
+			var quantity = q;
+			var product_id = p_id;
+	
+			// Simulate an asynchronous action, for example, adding to cart
+			setTimeout(function() {
+				// Hiển thị thông báo thành công
+				Swal.fire({
+					icon : 'success',
+					title : 'Đã thêm vào giỏ hàng!',
+					showConfirmButton : false,
+					timer : 1500
+				});
+			}, 500); // Simulate a delay of 500 milliseconds (replace with your actual logic)
+			// Gửi yêu cầu đến Servlet
+			var xhr = new XMLHttpRequest();
+			xhr
+					.open(
+							'POST',
+							'${pageContext.request.contextPath}/user/add-cart',
+							true);
+			xhr.setRequestHeader('Content-Type',
+					'application/x-www-form-urlencoded');
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					console.log('Đã nhận phản hồi từ Servlet:',
+							xhr.responseText);
+					// Xử lý phản hồi từ Servlet nếu cần
+				}
+			};
+			xhr.send(quantity + "," + product_id);
+		}};
 	</script>
 </body>
 </html>

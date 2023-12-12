@@ -39,4 +39,10 @@ public class CategoryService implements ICategoryService{
 		return cateDAO.findById(category_id);
 	}
 
+	@Override
+	public int countProduct(int category_id) {
+		// TODO Auto-generated method stub
+		return cateDAO.countProduct(category_id);
+	}
+
 }

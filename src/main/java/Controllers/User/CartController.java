@@ -88,20 +88,24 @@ public class CartController extends HttpServlet {
         
         HttpSession session = req.getSession();
 		User u = (User) session.getAttribute("account");
-		int user_id = u.getUserID();
-		int quantity = Integer.parseInt(parts[0].toString());
-		int product_id = Integer.parseInt(parts[1].toString());
-		Cart cart = cartService.findByUserIDAndProductId(user_id, product_id);
-		if (cart.getCart_id() == 0) {
-			Cart new_cart = new Cart(0, user_id, product_id, quantity);
-			cartService.insert(new_cart);
-			resp.sendRedirect(req.getContextPath() + "/product-detail?product_id="+String.valueOf(product_id));	
-		}
-		else {
-			quantity += cart.getQuantity();
-			cart.setQuantity(quantity);
-			cartService.update(cart);
-			resp.sendRedirect(req.getContextPath() + "/product-detail?product_id="+String.valueOf(product_id));
+		if (u != null) {
+			int user_id = u.getUserID();
+			int quantity = Integer.parseInt(parts[0].toString());
+			int product_id = Integer.parseInt(parts[1].toString());
+			Cart cart = cartService.findByUserIDAndProductId(user_id, product_id);
+			if (cart.getCart_id() == 0) {
+				Cart new_cart = new Cart(0, user_id, product_id, quantity);
+				cartService.insert(new_cart);
+				resp.sendRedirect(req.getContextPath() + "/product-detail?product_id="+String.valueOf(product_id));	
+			}
+			else {
+				quantity += cart.getQuantity();
+				cart.setQuantity(quantity);
+				cartService.update(cart);
+				resp.sendRedirect(req.getContextPath() + "/product-detail?product_id="+String.valueOf(product_id));
+			}
+		}else {
+			resp.sendRedirect(req.getContextPath() + "/user/login");
 		}
 	}
 }

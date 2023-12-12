@@ -18,30 +18,36 @@ import Services.IUserService;
 import Services.Impl.CartService;
 import Services.Impl.UserSerive;
 
-@WebServlet(urlPatterns = { "/user/account", "/user/wishlist", "/user/history",})
-public class UserController extends HttpServlet{
+@WebServlet(urlPatterns = { "/user/about", "/user/account", "/user/wishlist", "/user/history", })
+public class UserController extends HttpServlet {
 
 	IUserService userService = new UserSerive();
 	ICartSerive cartService = new CartService();
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String url = req.getRequestURI().toString();
-		if(url.contains("/user/account")) {
-			getAccount(req,resp);
-		}else if(url.contains("/user/wishlist")) {
-			getWishlist(req,resp);
-		}else if(url.contains("/user/history")) {
-			getHistory(req,resp);
+		if (url.contains("/user/account")) {
+			getAccount(req, resp);
+		} else if (url.contains("/user/wishlist")) {
+			getWishlist(req, resp);
+		} else if (url.contains("/user/history")) {
+			getHistory(req, resp);
+		} else if (url.contains("/user/about")) {
+			getAbout(req, resp);
 		}
+	}
+
+	private void getAbout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.getRequestDispatcher("/Views/user/aboutShop.jsp").forward(req, resp);
 	}
 
 	private void getHistory(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getRequestDispatcher("/Views/user/history.jsp").forward(req, resp);
 	}
-	
+
 	private void getWishlist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getRequestDispatcher("/Views/user/wishlist.jsp").forward(req, resp);
 	}

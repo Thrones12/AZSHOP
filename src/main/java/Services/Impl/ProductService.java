@@ -78,4 +78,9 @@ public class ProductService implements IProductService{
 	public List<Product> findTop3ByPrice(float start_range, float end_range, int offset) {
 		return proDAO.findTop3ByPrice(start_range, end_range, offset);
 	}
+
+	@Override
+	public List<Product> findBestSellingProdut() {
+		return proDAO.findBestSellingProdut();
+	}
 }

@@ -20,5 +20,6 @@ public interface IProductDAO {
 	List<Product> findTop3ByCategory(int category_id, int offset);
 	List<Product> findTop3BySupplier(int supplier_id, int offset);
 	List<Product> findTop3ByPrice(float start_range, float end_range, int offset);
+	List<Product> findBestSellingProdut();
 	
 }

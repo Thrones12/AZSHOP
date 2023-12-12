@@ -3,6 +3,7 @@ package Controllers.Web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Models.Category;
 import Models.Product;
 import Models.Supplier;
 import Models.User;
@@ -35,14 +37,20 @@ public class HomeController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String url = req.getRequestURI().toString();
-		req.setAttribute("listCategory", cateService.findAll());
+		// Set attribute
+		List<Category> categories = cateService.findAll();
+		for (Category i : categories) {
+			i.setCount(cateService.countProduct(i.getCategory_id()));
+		}
+		req.setAttribute("categories", categories);
 		List<Supplier> suppliers = supplierService.findAll();
 		for (Supplier i : suppliers) {
 			i.setCount(supplierService.countProduct(i.getSupplier_id()));
 		}
 		req.setAttribute("suppliers", suppliers);
 
+		// Handle Servlet
+		String url = req.getRequestURI().toString();
 		if (url.contains("home")) {
 			getHome(req, resp);
 		} else if (url.contains("product-detail")) {
@@ -53,6 +61,8 @@ public class HomeController extends HttpServlet {
 	}
 
 	private void getHomeAjax(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
 		int existingCount = 0;
 		String existingCountParam = req.getParameter("exists");
 		if (existingCountParam != null) {
@@ -70,30 +80,53 @@ public class HomeController extends HttpServlet {
 			products = proService.findTop3(existingCount);
 			System.out.println(existingCount);
 		}
-		System.out.println(req.getParameter("category_id") != "0");
-		System.out.println(req.getParameter("category_id"));
+
+		HttpSession session = req.getSession();
+		User u = (User) session.getAttribute("account");
+		int user_id = 0;
+		if (u != null) {
+			user_id = u.getUserID();
+			req.setAttribute("user_id", user_id);
+		}
 
 		PrintWriter out = resp.getWriter();
 		for (Product product : products) {
 			out.println("<div class=\"productAjax col-sm-4\">\r\n"
-					+ "						<div class=\"product-image-wrapper\">\r\n"
-					+ "							<div class=\"single-products\">\r\n"
-					+ "								<div class=\"productinfo text-center\">\r\n"
-					+ "									<a\r\n"
-					+ "										href=\"/AZSHOP/product-detail?product_id="
+					+ "									<div class=\" product-image-wrapper single-products\">\r\n"
+					+ "										<div class=\"productinfo text-center\">\r\n"
+					+ "											<a\r\n"
+					+ "												href=\"/AZSHOP/product-detail?product_id="
 					+ product.getProduct_id() + "\">\r\n"
-					+ "										<img style=\"width: 270px; height: 270px\"\r\n"
-					+ "										src=\"templates/images/product/" + product.getImage()
-					+ "\" alt=\"\" />\r\n" + "									</a>\r\n"
-					+ "									<h2>$" + product.getPrice() + "</h2>\r\n"
-					+ "									<h4>" + product.getProduct_name() + "</h4>\r\n"
-					+ "								</div>\r\n" + "							</div>\r\n"
-					+ "						</div>\r\n" + "					</div>");
+					+ "												<img style=\"width: auto; height: 134px\"\r\n"
+					+ "												src=\"templates/images/product/"
+					+ product.getImage() + "\" alt=\"\" />\r\n" + "											</a>\r\n"
+					+ "											<h2>$" + product.getPrice() + "</h2>\r\n"
+					+ "											<p>" + product.getProduct_name() + "</p>\r\n"
+					+ "											<button type=\"button\" class=\"btn btn-default add-to-cart\"\r\n"
+					+ "												id=\"addToCart\"\r\n"
+					+ "												onclick=\"clickToAddCart(" + user_id + ", "
+					+ product.getProduct_id() + ", 1)\">\r\n"
+					+ "												<i class=\"fa fa-shopping-cart\"></i>Add to cart\r\n"
+					+ "											</button>\r\n" + "\r\n"
+					+ "										</div>\r\n" + "									</div>\r\n"
+					+ "								</div>");
 		}
 	}
 
 	private void getProductDetail(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		// Handle slider
+		List<Product> bestSelling = proService.findBestSellingProdut();
+
+		System.out.println(bestSelling.get(0));
+
+		req.setAttribute("bestSelling_active", bestSelling.get(0));
+		req.setAttribute("bestSelling1", bestSelling.get(1));
+		req.setAttribute("bestSelling2", bestSelling.get(2));
+
+		// Handle Product
 		Product product;
 		if (req.getParameter("product_id") == null || req.getParameter("product_id").isEmpty()) {
 			product = proService.findByID(1);
@@ -105,6 +138,19 @@ public class HomeController extends HttpServlet {
 
 		Supplier supplier = supplierService.findById(product.getSupplier_id());
 		req.setAttribute("supplier", supplier);
+
+		// Handle sup image
+		String[] images = product.getImages().split(",");
+		List<List<String>> matrix_image = new ArrayList<>();
+
+		for (int i = 0; i < images.length; i += 3) {
+			int endIndex = Math.min(i + 3, images.length);
+			List<String> row = new ArrayList<>(Arrays.asList(Arrays.copyOfRange(images, i, endIndex)));
+			matrix_image.add(row);
+		}
+
+		req.setAttribute("images_active", matrix_image.get(0));
+		req.setAttribute("images", matrix_image.subList(1, matrix_image.size()));
 
 		// Handle product same category
 		List<Product> products_same_category = proService.findByCategory(product.getCategory_id());
@@ -131,7 +177,7 @@ public class HomeController extends HttpServlet {
 
 		req.setAttribute("same_supplier_active", matrix_same_supplier.get(0));
 		req.setAttribute("same_supplier", matrix_same_supplier.subList(1, matrix_same_supplier.size()));
-		
+
 		// Handle viewed product
 		HttpSession session = req.getSession();
 		User u = (User) session.getAttribute("account");
@@ -145,8 +191,7 @@ public class HomeController extends HttpServlet {
 		vp.setUserID(user_id);
 		vp.setProductID(product.getProduct_id());
 		vp.setViewdate(new java.sql.Date(new java.util.Date().getTime()));
-		
-		
+
 		List<Product> products_viewed = new ArrayList<>();
 		for (ViewedProduct item : viewedproducts) {
 			products_viewed.add(proService.findByID(item.getProductID()));
@@ -167,13 +212,36 @@ public class HomeController extends HttpServlet {
 
 		req.setAttribute("viewed_product_active", matrix_same_vp.get(0));
 		req.setAttribute("viewed_product", matrix_same_vp.subList(1, matrix_same_vp.size()));
+		req.setAttribute("user_id", user_id);
 
 		req.getRequestDispatcher("Views/web/product-detail.jsp").forward(req, resp);
 	}
 
 	private void getHome(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		// Get user id
+		HttpSession session = req.getSession();
+		User u = (User) session.getAttribute("account");
+		int user_id = 0;
+		if (u != null) {
+			user_id = u.getUserID();
+			req.setAttribute("user_id", user_id);
+		}
+
+		// Handle slider
+		List<Product> bestSelling = proService.findBestSellingProdut();
+
+		System.out.println(bestSelling.get(0));
+
+		req.setAttribute("bestSelling_active", bestSelling.get(0));
+		req.setAttribute("bestSelling1", bestSelling.get(1));
+		req.setAttribute("bestSelling2", bestSelling.get(2));
+
+		// Clean bảng các sản phẩm đã xem
 		vpService.CleanTable();
-		
+
+		// Get product list
 		List<Product> list_pro;
 		int category_id = 0;
 		int supplier_id = 0;
@@ -209,11 +277,15 @@ public class HomeController extends HttpServlet {
 		if (list_pro.size() == 0) {
 			req.setAttribute("message", "Không có sản phẩm");
 		}
-		req.setAttribute("listProduct", list_pro);
+
+		// Set attribute
+		req.setAttribute("products", list_pro);
 		req.setAttribute("category_id", category_id);
 		req.setAttribute("supplier_id", supplier_id);
 		req.setAttribute("start_range", start_range);
 		req.setAttribute("end_range", end_range);
+
+		// Render page
 		req.getRequestDispatcher("Views/web/home.jsp").forward(req, resp);
 	}
 
@@ -228,11 +300,12 @@ public class HomeController extends HttpServlet {
 	private void postSearch(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		String searchValue = req.getParameter("searchInput");
 		List<Product> products = proService.findByName(searchValue);
+		System.out.println(products.toString());
 		if (products.size() == 0) {
 			req.setAttribute("message", "Không có sản phẩm");
 		}
-		req.setAttribute("listProduct", products);
-		req.setAttribute("listCategory", cateService.findAll());
+		req.setAttribute("products", products);
+		req.setAttribute("categories", cateService.findAll());
 		List<Supplier> suppliers = supplierService.findAll();
 		for (Supplier i : suppliers) {
 			i.setCount(supplierService.countProduct(i.getSupplier_id()));

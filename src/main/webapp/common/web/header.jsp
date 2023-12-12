@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
+
 <header id="header">
 	<!--header-->
 	<div class="header_top">
@@ -42,10 +43,12 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-4">
-					<div class="logo pull-left">
-						<a href="${pageContext.request.contextPath}/home"><img
-							src="${pageContext.request.contextPath}/templates/images/home/logo.png"
-							alt="" /></a>
+					<div class="logo pull-left companyinfo">
+						<a href="${pageContext.request.contextPath}/home">
+							<h2 style="font-size: 50px">
+								<span>AZ</span>-SHOP
+							</h2>
+						</a>
 					</div>
 				</div>
 				<div class="col-sm-8">
@@ -57,9 +60,6 @@
 									<li><a
 										href="${pageContext.request.contextPath}/user/login"><i
 											class="fa fa-user"></i> Tài khoản</a></li>
-									<li><a
-										href="${pageContext.request.contextPath}/user/login"><i
-											class="fa fa-star"></i> Yêu thích</a></li>
 									<li><a
 										href="${pageContext.request.contextPath}/user/login"><i
 											class="fa fa-crosshairs"></i> Lịch sử</a></li>

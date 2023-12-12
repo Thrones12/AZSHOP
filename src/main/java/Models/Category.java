@@ -8,7 +8,14 @@ public class Category implements Serializable {
 	
 	private int category_id;
 	private String  category_name;
+	private int count;
 	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public Category() {
 		super();
 		// TODO Auto-generated constructor stub

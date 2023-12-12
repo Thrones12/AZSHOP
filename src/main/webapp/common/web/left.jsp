@@ -6,12 +6,13 @@
 		<h2>Danh mục</h2>
 		<div class="panel-group category-products" id="accordian">
 			<!--category-productsr-->
-			<c:forEach var="category" items="${listCategory }">
+			<c:forEach var="category" items="${categories }">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
 							<a
-								href="<c:url value='/home?category_id=${category.category_id}'></c:url>">
+								href="<c:url value='/home?category_id=${category.category_id}'></c:url>"><span
+								class="pull-right">(${category.count })</span>
 								${category.category_name}</a>
 						</h4>
 					</div>
