@@ -232,8 +232,6 @@ public class HomeController extends HttpServlet {
 		// Handle slider
 		List<Product> bestSelling = proService.findBestSellingProdut();
 
-		System.out.println(bestSelling.get(0));
-
 		req.setAttribute("bestSelling_active", bestSelling.get(0));
 		req.setAttribute("bestSelling1", bestSelling.get(1));
 		req.setAttribute("bestSelling2", bestSelling.get(2));

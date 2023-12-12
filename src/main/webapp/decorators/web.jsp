@@ -92,7 +92,10 @@
 	</section>
 
 	<%@ include file="/common/web/footer.jsp"%>
-
+	<script
+		src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+	<df-messenger intent="WELCOME" chat-title="AZ-bot"
+		agent-id="fbbf7f5b-bd8d-4b32-8b8d-ed2fdd480232" language-code="vi"></df-messenger>
 	<script src="templates/js/jquery.js"></script>
 	<script src="templates/js/bootstrap.min.js"></script>
 	<script src="templates/js/jquery.scrollUp.min.js"></script>
