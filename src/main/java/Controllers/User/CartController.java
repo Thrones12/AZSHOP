@@ -41,14 +41,29 @@ public class CartController extends HttpServlet {
 
 	private void getUpdate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Cart cart = cartService.findById(Integer.parseInt(req.getParameter("cart_id")));
-		int new_quantity = cart.getQuantity() + Integer.parseInt(req.getParameter("quantity"));
-		cart.setQuantity(new_quantity);
-		cartService.update(cart);
+		int new_quantity;
+		if ("true".equals(req.getParameter("isCheck"))) {
+			new_quantity = Integer.parseInt(req.getParameter("quantity"));
+		} else {
+			new_quantity = cart.getQuantity() + Integer.parseInt(req.getParameter("quantity"));	
+		}
+		if (new_quantity == 0) {
+			cartService.delete(cart.getCart_id());
+		}else {
+			cart.setQuantity(new_quantity);
+			cartService.update(cart);	
+		}
 		resp.sendRedirect(req.getContextPath() + "/user/cart");
 	}
 
 	private void getCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
 		HttpSession session = req.getSession();
+		
+		if (req.getParameter("message") != null) {
+			req.setAttribute("message", "Có sản phẩm hết hàng");
+		}
 		User u = (User) session.getAttribute("account");
 		int user_id = u.getUserID();
 		List<Cart> carts = cartService.findByUserID(user_id);
@@ -60,7 +75,6 @@ public class CartController extends HttpServlet {
 		}
 
 		req.setAttribute("total", total);
-		;
 
 		req.getRequestDispatcher("/Views/user/cart.jsp").forward(req, resp);
 	}

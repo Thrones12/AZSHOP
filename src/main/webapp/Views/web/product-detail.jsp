@@ -82,15 +82,16 @@
 								<!--/product-information-->
 								<h2>${product.product_name }</h2>
 								<p>Mã sản phẩm: ${product.product_id }</p>
-								<span> <span>$${product.price }</span> <label>Quantity:</label>
-									<input name="product_id" type="hidden"
+								<span> <span><fmt:formatNumber
+										value="${product.price}" pattern="#,##0" /> ₫</span> <br>
+								<label>Quantity:</label> <input name="product_id" type="hidden"
 									value="${product.product_id}" /> <input name="quantity"
 									type="text" value="1" />
-									<button type="button" class="btn btn-fefault cart"
-										id="addToCart"
-										onclick="clickToAddCart(${user_id}, ${product.product_id}, 1)">
-										<i class="fa fa-shopping-cart"></i> Add to cart
-									</button>
+								<button type="button" class="btn btn-fefault cart"
+									id="addToCart"
+									onclick="clickToAddCart(${user_id}, ${product.product_id}, 1)">
+									<i class="fa fa-shopping-cart"></i> Add to cart
+								</button>
 								</span>
 								<p>
 									<b>Tồn kho: </b>${product.stock_quantity }</p>
@@ -122,7 +123,11 @@
 															<img style="width: auto; height: 134px"
 															src="templates/images/product/${i.image }" alt="" />
 														</a>
-														<h2>$${product.price }</h2>
+														<h2>
+															<fmt:formatNumber value="${product.price}"
+																pattern="#,##0" />
+															₫
+														</h2>
 														<p>${i.product_name }</p>
 														<button type="button" class="btn btn-default add-to-cart"
 															onclick="clickToAddCart(${user_id}, ${i.product_id}, 1)">
@@ -147,7 +152,10 @@
 																src="templates/images/product/${i.image }" alt="" />
 															</a>
 
-															<h2>$${i.price }</h2>
+															<h2>
+																<fmt:formatNumber value="${i.price}" pattern="#,##0" />
+																₫
+															</h2>
 															<p>${i.product_name }</p>
 															<button type="button" class="btn btn-default add-to-cart"
 																onclick="clickToAddCart(${user_id}, ${i.product_id}, 1)">
@@ -189,7 +197,11 @@
 															href="<c:url value='/product-detail?product_id=${i.product_id}'></c:url>"><img
 															style="width: auto; height: 134px"
 															src="templates/images/product/${i.image }" alt="" /></a>
-														<h2>$${product.price }</h2>
+														<h2>
+															<fmt:formatNumber value="${product.price}"
+																pattern="#,##0" />
+															₫
+														</h2>
 														<p>${i.product_name }</p>
 														<button type="button" class="btn btn-default add-to-cart"
 															onclick="clickToAddCart(${user_id}, ${i.product_id}, 1)">
@@ -212,7 +224,10 @@
 																href="<c:url value='/product-detail?product_id=${i.product_id}'></c:url>"><img
 																style="width: auto; height: 134px"
 																src="templates/images/product/${i.image }" alt="" /></a>
-															<h2>$${i.price }</h2>
+															<h2>
+																<fmt:formatNumber value="${i.price}" pattern="#,##0" />
+																₫
+															</h2>
 															<p>${i.product_name }</p>
 															<button type="button" class="btn btn-default add-to-cart"
 																onclick="clickToAddCart(${user_id}, ${i.product_id}, 1)">
@@ -254,7 +269,11 @@
 															href="<c:url value='/product-detail?product_id=${i.product_id}'></c:url>"><img
 															style="width: auto; height: 134px"
 															src="templates/images/product/${i.image }" alt="" /></a>
-														<h2>$${product.price }</h2>
+														<h2>
+															<fmt:formatNumber value="${product.price}"
+																pattern="#,##0" />
+															₫
+														</h2>
 														<p>${i.product_name }</p>
 														<button type="button" class="btn btn-default add-to-cart"
 															onclick="clickToAddCart(${user_id}, ${i.product_id}, 1)">
@@ -278,7 +297,10 @@
 																style="width: auto; height: 134px"
 																src="templates/images/product/${i.image }" alt="" /></a>
 
-															<h2>$${i.price }</h2>
+															<h2>
+																<fmt:formatNumber value="${i.price}" pattern="#,##0" />
+																₫
+															</h2>
 															<p>${i.product_name }</p>
 															<button type="button" class="btn btn-default add-to-cart"
 																onclick="clickToAddCart(${user_id}, ${i.product_id}, 1)">

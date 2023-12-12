@@ -9,7 +9,26 @@
 </head>
 <body>
 	<section id="cart_items">
-		<div class="features_items">
+
+		<c:if test="${not empty message}">
+			<script>
+				function showMessage(mess) {
+					setTimeout(function() {
+						// Hiển thị thông báo thành công
+						Swal.fire({
+							icon : 'error',
+							title : mess,
+							showConfirmButton : false,
+							timer : 1500
+						});
+					}, 500); // Simulate a delay of 500 milliseconds (replace with your actual logic)
+				}
+				var messageFromJSP = '${message}';
+				// Thực thi function thông báo khi biến message tồn tại
+				showMessage(messageFromJSP);
+			</script>
+		</c:if>
+		<div class="features_items" style="margin-top: 50px;">
 			<h2 class="title text-center">Giỏ hàng</h2>
 		</div>
 		<div class="container">
@@ -39,21 +58,46 @@
 									<p>Mã sản phẩm: ${cart.product.product_id}</p>
 								</td>
 								<td class="cart_price">
-									<p>$${cart.product.price }</p>
+									<p>
+										<fmt:formatNumber value="${cart.product.price}"
+											pattern="#,##0" />
+										₫
+									</p>
 								</td>
 								<td class="cart_quantity">
 									<div class="cart_quantity_button">
-										<a class="cart_quantity_up"
-											href="${pageContext.request.contextPath}/user/update-cart?cart_id=${cart.cart_id}&quantity=1">
-											+ </a> <input class="cart_quantity_input" type="text"
-											name="quantity" value="${cart.quantity }" autocomplete="off"
-											size="2"> <a class="cart_quantity_down"
-											href="${pageContext.request.contextPath}/user/update-cart?cart_id=${cart.cart_id}&quantity=-1">
-											- </a>
+										<form id="updateCartForm${cart.cart_id }"
+											action="${pageContext.request.contextPath}/user/update-cart"
+											method="get">
+											<button class="cart_quantity_input" name="quantity" value="1"
+												style="width: 25px; height: auto;">+</button>
+											<input type="hidden" name="cart_id" value="${cart.cart_id}">
+											<input type="hidden" name="isCheck" value="false">
+										</form>
+										<form id="updateCartForm${cart.cart_id }"
+											action="${pageContext.request.contextPath}/user/update-cart"
+											method="get">
+											<input class="cart_quantity_input" type="text"
+												name="quantity" value="${cart.quantity}" autocomplete="off"
+												size="2"> <input type="hidden" name="cart_id"
+												value="${cart.cart_id}"> <input type="hidden"
+												name="isCheck" value="true">
+										</form>
+										<form id="updateCartForm${cart.cart_id }"
+											action="${pageContext.request.contextPath}/user/update-cart"
+											method="get">
+											<button class="cart_quantity_input" name="quantity"
+												value="-1" style="width: 25px; height: auto;">-</button>
+											<input type="hidden" name="cart_id" value="${cart.cart_id}">
+											<input type="hidden" name="isCheck" value="false">
+										</form>
 									</div>
 								</td>
 								<td class="cart_total">
-									<p class="cart_total_price">$${cart.total_price }</p>
+									<p class="cart_total_price">
+										<fmt:formatNumber value="${cart.total_price}" pattern="#,##0" />
+										₫
+									</p>
 								</td>
 								<td class="cart_delete"><a class="cart_quantity_delete"
 									href="${pageContext.request.contextPath}/user/delete-cart?cart_id=${cart.cart_id}"><i
@@ -72,16 +116,24 @@
 				<div class="col-sm-6">
 					<div class="total_area" style="width: 500px; font-size: 20px">
 						<p>
-							Giá trị đơn hàng: <span>$${total }</span>
+							Giá trị đơn hàng: <span><fmt:formatNumber value="${total}"
+									pattern="#,##0" /> ₫</span>
 						</p>
 						<a style="font-size: 20px" class="btn btn-default check_out"
-							href="${pageContext.request.contextPath}/user/checkout">Đặt hàng</a>
+							href="${pageContext.request.contextPath}/user/checkout">Đặt
+							hàng</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 	<!--/#do_action-->
-
+	<!-- Sử dụng sự kiện onchange để tự động gửi biểu mẫu khi số lượng thay đổi -->
+	<script>
+		document.querySelector('.cart_quantity_input').addEventListener(
+				'change', function() {
+					document.getElementById('updateCartForm').submit();
+				});
+	</script>
 </body>
 </html>

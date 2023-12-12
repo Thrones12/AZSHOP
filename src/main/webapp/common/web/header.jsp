@@ -43,10 +43,10 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-4">
-					<div class="logo pull-left companyinfo">
+					<div class="logo pull-left">
 						<a href="${pageContext.request.contextPath}/home">
-							<h2 style="font-size: 50px">
-								<span>AZ</span>-SHOP
+							<h2 style="color: #B4B1AB;font-family: abel;font-size: 50px">
+								<span style="color: #FE980F;">AZ</span>-SHOP
 							</h2>
 						</a>
 					</div>

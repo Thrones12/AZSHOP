@@ -25,7 +25,8 @@
 								<!--/product-information-->
 								<h2>${product.product_name }</h2>
 								<p>Mã sản phẩm: ${product.product_id }</p>
-								<span> <span>$${product.price }</span> <label>Quantity:</label>
+								<span> <span><fmt:formatNumber value="${product.price}" pattern="#,##0" />
+												₫</span> <label>Quantity:</label>
 									<input type="text" value="3" />
 									<button type="button" class="btn btn-fefault cart">
 										<i class="fa fa-shopping-cart"></i> Add to cart
@@ -58,7 +59,8 @@
 													<div class="productinfo text-center">
 														<img style="width: auto; height: 134px"
 															src="templates/images/product/${i.image }" alt="" />
-														<h2>$${product.price }</h2>
+														<h2><fmt:formatNumber value="${product.price}" pattern="#,##0" />
+												₫</h2>
 														<p>${i.product_name }</p>
 														<button type="button" class="btn btn-default add-to-cart">
 															<i class="fa fa-shopping-cart"></i>Add to cart
@@ -117,7 +119,8 @@
 													<div class="productinfo text-center">
 														<img style="width: auto; height: 134px"
 															src="templates/images/product/${i.image }" alt="" />
-														<h2>$${product.price }</h2>
+														<h2><fmt:formatNumber value="${product.price}" pattern="#,##0" />
+												₫</h2>
 														<p>${i.product_name }</p>
 														<button type="button" class="btn btn-default add-to-cart">
 															<i class="fa fa-shopping-cart"></i>Add to cart
@@ -177,7 +180,8 @@
 													<div class="productinfo text-center">
 														<img style="width: auto; height: 134px"
 															src="templates/images/product/${i.image }" alt="" />
-														<h2>$${product.price }</h2>
+														<h2><fmt:formatNumber value="${product.price}" pattern="#,##0" />
+												₫</h2>
 														<p>${i.product_name }</p>
 														<button type="button" class="btn btn-default add-to-cart">
 															<i class="fa fa-shopping-cart"></i>Add to cart

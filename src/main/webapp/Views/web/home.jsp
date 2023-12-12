@@ -28,7 +28,10 @@
 												<img style="width: auto; height: 134px"
 												src="templates/images/product/${product.image }" alt="" />
 											</a>
-											<h2>$${product.price }</h2>
+											<h2>
+												<fmt:formatNumber value="${product.price}" pattern="#,##0" />
+												₫
+											</h2>
 											<p>${product.product_name }</p>
 											<button type="button" class="btn btn-default add-to-cart"
 												id="addToCart"

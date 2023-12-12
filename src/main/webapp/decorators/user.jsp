@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ include file="/common/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -35,10 +35,21 @@
 	href="templates/images/ico/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed"
 	href="templates/images/ico/apple-touch-icon-57-precomposed.png">
+
 </head>
 <body>
 	<%@ include file="/common/user/header.jsp"%>
 	<decorator:body></decorator:body>
 	<%@ include file="/common/user/footer.jsp"%>
+
+
+	<script src="templates/js/jquery.js"></script>
+	<script src="templates/js/bootstrap.min.js"></script>
+	<script src="templates/js/jquery.scrollUp.min.js"></script>
+	<script src="templates/js/price-range.js"></script>
+	<script src="templates/js/jquery.prettyPhoto.js"></script>
+	<script src="templates/js/main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </body>
 </html>

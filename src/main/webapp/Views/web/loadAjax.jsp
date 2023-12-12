@@ -26,7 +26,7 @@
 										<img style="width: 270px; height: 270px"
 										src="templates/images/product/${product.image}" alt="" />
 									</a>
-									<h2>$${product.price }</h2>
+									<h2>${product.price }₫</h2>
 									<h4>${product.product_name }</h4>
 								</div>
 							</div>

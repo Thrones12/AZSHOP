@@ -52,7 +52,7 @@ body {
 	<div id="contact-page" class="container">
 		<div class="bg">
 			<div class="row">
-				<div class="col-sm-12">
+				<div class="col-sm-12" style="margin-top: 50px;">
 					<h2 class="title text-center">
 						Giới thiệu
 					</h2>

@@ -88,8 +88,10 @@
 									</div>
 								</td>
 								<td class="cart_total">
-									<p style="font-size: 25px" class="cart_total_price">$${cart.total_price
-										}</p>
+									<p style="font-size: 25px" class="cart_total_price">
+										<fmt:formatNumber value="${cart.total_price}" pattern="#,##0" />
+										₫
+									</p>
 								</td>
 							</tr>
 							<tr>
@@ -98,15 +100,17 @@
 									<table class="table table-condensed total-result">
 										<tr>
 											<td>Tổng giá trị các sản phẩm</td>
-											<td>$${total }</td>
+											<td><fmt:formatNumber value="${total}" pattern="#,##0" />
+												₫/td>
 										</tr>
 										<tr class="shipping-cost">
 											<td>Phí ship</td>
-											<td>$10</td>
+											<td>10.000₫</td>
 										</tr>
 										<tr>
 											<td>Giá trị đơn hàng</td>
-											<td><span>$${total_amount }</span></td>
+											<td><span><fmt:formatNumber value="${total_amount}" pattern="#,##0" />
+												₫</span></td>
 										</tr>
 									</table>
 								</td>
@@ -130,7 +134,8 @@
 				<div class="col-sm-6">
 					<div class="total_area" style="width: 500px; font-size: 20px">
 						<button style="font-size: 20px; width: 300px; margin: 30px 0px"
-							class="btn btn-default check_out" id="checkoutButton" onclick="validateForm(event)">Thanh
+							class="btn btn-default check_out" id="checkoutButton"
+							onclick="validateForm(${total_amount }, event)">Thanh
 							toán</button>
 					</div>
 				</div>
@@ -142,7 +147,7 @@
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script>
 	// Đăng ký sự kiện sau khi trang đã được tải
-    function validateForm() {
+    function validateForm(total_amount) {
     	event.preventDefault();
         var senderName = document.getElementById('senderName').value;
         var senderPhone = document.getElementById('senderPhone').value;
@@ -165,7 +170,7 @@
             return false;
         }
 		if (paymentMethodCard){
-            window.location.href = '/AZSHOP/user/paymentMethodCart';
+            window.location.href = '/AZSHOP/user/paymentMethodCart?total_amount='+total_amount;
 		}
 		else{
 	        // Ajax request to submit data
