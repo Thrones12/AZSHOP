@@ -39,7 +39,15 @@
 </head>
 <body>
 <%@ include file="/common/admin/header.jsp"%>
-<decorator:body></decorator:body>
-<%@ include file="/common/user/footer.jsp"%>
+
+	<section>
+		<div class="container">
+			<div class="row">
+				<decorator:body></decorator:body>
+			</div>
+		</div>
+	</section>
+
+<%@ include file="/common/admin/footer.jsp"%>
 </body>
 </html>
