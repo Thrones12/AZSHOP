@@ -12,6 +12,7 @@ public class BillDetail implements Serializable{
 	private int productID;
 	private int quantity;
 	private BigDecimal price;
+	private Product product;
 	public BillDetail() {
 		super();
 	}
@@ -56,6 +57,14 @@ public class BillDetail implements Serializable{
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+	
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	@Override

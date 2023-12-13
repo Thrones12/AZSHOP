@@ -17,5 +17,7 @@ public interface IBillService {
 	    
 	 Bill findById(int bill_id);
 	 
+	 List<Bill> findByUserID(int userid);
+	 
 	 Bill findNewestBillByUserID(int user_id);
 }

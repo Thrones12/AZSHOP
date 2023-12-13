@@ -44,4 +44,9 @@ public class BillDetailService implements IBillDetailService {
 		return bdDAO.findById(billDetail_id);
 	}
 
+	@Override
+	public List<BillDetail> findBilDetailByBillID(int billID) {
+		return bdDAO.findBilDetailByBillID(billID);
+	}
+
 }

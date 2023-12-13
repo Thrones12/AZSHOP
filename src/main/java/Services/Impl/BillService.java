@@ -44,6 +44,14 @@ public class BillService implements IBillService{
 	public Bill findNewestBillByUserID(int user_id) {
 		return billDAO.findNewestBillByUserID(user_id);
 	}
+
+	@Override
+	public List<Bill> findByUserID(int userid) {
+		// TODO Auto-generated method stub
+		return billDAO.findByUserID(userid);
+	}
+
+	
 	
 	
 }

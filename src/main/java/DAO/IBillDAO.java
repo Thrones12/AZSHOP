@@ -18,4 +18,6 @@ public interface IBillDAO {
 	 Bill findById(int bill_id);
 	 
 	 Bill findNewestBillByUserID(int user_id);
+	 
+	 List<Bill> findByUserID(int userid);
 }

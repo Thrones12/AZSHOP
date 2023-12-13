@@ -15,4 +15,6 @@ public interface IBillDetailService {
 	 void delete(int billDetail_id);
 	    
 	 BillDetail findById(int billDetail_id);
+	 
+	 List<BillDetail> findBilDetailByBillID(int billID);
 }

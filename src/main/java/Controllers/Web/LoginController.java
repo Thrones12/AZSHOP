@@ -17,7 +17,7 @@ import Utils.Constant;
 import Utils.Email;
 
 @WebServlet(urlPatterns = { "/user/login", "/user/logout", "/user/register", "/user/forgotpass", "/user/waiting",
-		"/user/VerifyCode" })
+		"/user/VerifyCode", "/user/changepass"})
 public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = -3189424333469822611L;
@@ -40,6 +40,8 @@ public class LoginController extends HttpServlet {
 			req.getRequestDispatcher("/Views/user/verify.jsp").forward(req, resp);
 		} else if (url.contains("logout")) {
 			getlogout(req, resp);
+		} else if (url.contains("changepass")) {
+			req.getRequestDispatcher("/Views/user/changepass.jsp").forward(req, resp);
 		} else {
 			homePage(req, resp);
 		}
@@ -56,6 +58,8 @@ public class LoginController extends HttpServlet {
 			postForgotPass(req, resp);
 		} else if (url.contains("VerifyCode")) {
 			postVerifyCode(req, resp);
+		} else if (url.contains("changepass")) {
+			changepass(req, resp);
 		}
 	}
 
@@ -269,6 +273,30 @@ public class LoginController extends HttpServlet {
 		}
 		resp.sendRedirect(req.getContextPath() + "/home");
 
+	}
+
+	private void changepass(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/html; charset=UTF-8");
+		try (PrintWriter out = resp.getWriter()) {
+			HttpSession session = req.getSession();
+			User u = (User) session.getAttribute("account");
+
+			String oldpass = req.getParameter("oldpass");
+			String newpass = req.getParameter("newpass");
+
+			if (oldpass.equals(u.getPassword())) {
+				u.setPassword(newpass);
+				userService.update(u);
+				
+				out.println("<div class=\"container\"><br/>\r\n" + "  <br/>\r\n"
+						+ "<br/>Đổi mật khẩu thành công!<br/>\r\n" + "  <br/>\r\n" + "<br/></div>");
+			} else {
+				out.println("<div class=\"container\"><br/>\r\n" + "  <br/>\r\n"
+						+ "<br/>Đổi mật khẩu thất bại!<br/>\r\n" + "  <br/>\r\n" + "<br/></div>");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

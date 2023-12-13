@@ -10,7 +10,6 @@ import Connection.DBConnection;
 import DAO.IBillDAO;
 
 import Models.Bill;
-import Models.BillDetail;
 
 public class BillDAO implements IBillDAO {
 
@@ -160,6 +159,34 @@ public class BillDAO implements IBillDAO {
 			e.printStackTrace();
 		}
 		return bill;
+	}
+
+	@Override
+	public List<Bill> findByUserID(int userid) {
+		List<Bill> listbill = new ArrayList<Bill>();
+		String query = "SELECT * FROM bills\r\n" + "WHERE user_id = ? \r\n" ;
+		try {
+			Connection conn = new DBConnection().getConnection();
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setInt(1, userid);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Bill bill = new Bill();
+				bill.setBill_id(rs.getInt("bill_id"));
+				bill.setUser_id(rs.getInt("user_id"));
+				bill.setOrder_date(rs.getDate("order_date"));
+				bill.setTotal_amount(rs.getBigDecimal("total_amount"));
+				bill.setReceiver(rs.getString("receiver"));
+				bill.setPhone(rs.getString("phone"));
+				bill.setAddress(rs.getString("address"));
+
+				listbill.add(bill);
+			}
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listbill;
 	}
 
 }

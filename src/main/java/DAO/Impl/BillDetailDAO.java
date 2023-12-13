@@ -114,4 +114,29 @@ public class BillDetailDAO implements IBillDetailDAO{
 		return model;
 	}
 
+	@Override
+	public List<BillDetail> findBilDetailByBillID(int billID) {
+		List<BillDetail> listbilldetail = new ArrayList<BillDetail>();
+		String sql = "select * from bill_details where bill_id=?";
+		try {
+			Connection conn = new DBConnection().getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, billID);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				BillDetail model = new BillDetail();
+				model.setDetailID(rs.getInt("detail_id"));
+				model.setBillID(rs.getInt("bill_id"));
+				model.setProductID(rs.getInt("product_id"));
+				model.setQuantity(rs.getInt("quantity"));
+				model.setPrice(rs.getBigDecimal("price"));
+				listbilldetail.add(model);
+			}
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listbilldetail;
+	}
+
 }

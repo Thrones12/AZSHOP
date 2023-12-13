@@ -33,7 +33,7 @@
 						</form>
 					</div>
 					<!--/login form-->
-					</div>
+				</div>
 			</div>
 		</div>
 	</section>

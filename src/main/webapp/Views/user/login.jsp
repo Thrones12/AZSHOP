@@ -29,12 +29,12 @@
 								Keep me signed in
 							</span>
 							<h5>
-								<a href="<c:url value='/user/web/forgotpass'></c:url>">Forgot
+								<a href="<c:url value='/user/forgotpass'></c:url>">Forgot
 									password</a>
 							</h5>
 							<button type="submit" class="btn btn-default">Login</button>
 							<button type="button" class="btn btn-default"
-								onclick="window.location.href='<c:url value='/user/web/register'></c:url>'">
+								onclick="window.location.href='<c:url value='/user/register'></c:url>'">
 								Register</button>
 						</form>
 					</div>
