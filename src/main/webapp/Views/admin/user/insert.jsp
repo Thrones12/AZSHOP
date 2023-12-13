@@ -8,24 +8,36 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div class="container mt-4">
 	<form action="insert" method="post">
-		<Label>Name</Label><br> 
-		<input type="text" name="userName" /><br>
-		
-		<Label>Password</Label><br> <input type="text"
-			name="password" /><br> 
-			
-		<Label>Email</Label><br> <input
-			type="text" name="email" /><br> 
-			
-		<Label>Role</Label><br> <input type="text"
-			name="role" /><br> 
-			
-		<Label>Status</Label><br> <input type="text"
-			name="status" /><br> 
+		<div class="form-group">
+			<Label>Tên </Label><br>
+			<input type="text" name="userName" class="form-control">
+		</div>
+
+		<div class="form-group">
+			<Label>Mật khẩu</Label><br> <input type="text"
+			name="password" class="form-control">
+		</div>
+
+		<div class="form-group">
+			<Label>Email</Label><br> <input
+			type="text" name="email" class="form-control">
+		</div>
+
+		<div class="form-group">
+			<Label>Role</Label><br> <input type="text"
+			name="role" class="form-control">
+		</div>
+
+		<div class="form-group">
+			<Label>Status</Label><br> <input type="text"
+			name="status"class="form-control">
+		</div>
 		
 		<input type="submit"
-			value="User insert" />
+			value="Tạo mới" class="btn btn-primary">
 	</form>
+</div>
 </body>
 </html>

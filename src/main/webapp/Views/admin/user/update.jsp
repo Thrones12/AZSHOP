@@ -8,26 +8,42 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div class="container mt-4">
 	<form action="update" method="post">
-		<label>ID: </label><br>
-		<input type="text" name="userID" value="${user.userID}" readonly="readonly"/><br>
+		<div class="form-group">
+			<label>ID: </label><br>
+			<input type="text" name="userID" value="${user.userID}" readonly="readonly" class="form-control"/>
+		</div>
 
-		<Label>Name</Label><br> 
-		<input type="text" name="userName"value="${user.userName}" /><br>
-		
-		<Label>Password</Label><br> 
-		<input type="text" name="password" value="${user.password}"/><br> 
-			
-		<Label>Email</Label><br> <input
-			type="text" name="email" value="${user.email}"/><br> 
-			
-		<Label>Role</Label><br> 
-		<input type="text" name="role" value="${user.role}"/><br> 
-		
-		<Label>Status</Label><br> 
-		<input type="text" name="status" value="${user.status}"/><br> 
-		
-		<input type="submit" value="User update"/>
+		<div class="form-group">
+			<Label>Name</Label><br>
+			<input type="text" name="userName"value="${user.userName}"  class="form-control"/>
+		</div>
+
+		<div class="form-group">
+			<Label>Password</Label><br>
+			<input type="text" name="password" value="${user.password}" class="form-control"/>
+		</div>
+
+		<div class="form-group">
+			<Label>Email</Label><br> <input
+			type="text" name="email" value="${user.email}" class="form-control"/>
+		</div>
+
+		<div class="form-group">
+			<Label>Role</Label><br>
+			<input type="text" name="role" value="${user.role}" class="form-control"/>
+		</div>
+
+		<div class="form-group">
+			<Label>Status</Label><br>
+			<input type="text" name="status" value="${user.status}" class="form-control"/>
+		</div>
+
+		<div class="form-group">
+			<input type="submit" value="User update" class="btn btn-primary">
+		</div>
 	</form>
+</div>
 </body>
 </html>

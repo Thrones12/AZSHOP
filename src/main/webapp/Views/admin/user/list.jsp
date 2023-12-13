@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/common/taglib.jsp"%>
+<%@ include file="/common/admin/header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,34 +15,42 @@
 		<span>${error}</span>
 	</c:if>
 
-	<h5><a href="<c:url value='/admin/user/insert'></c:url>">Insert</a></h5>
-	
-	<table border="1">
-		<tr>
-			<th>ID</th>
-			<th>Name</th>
-			<th>Password</th>
-			<th>Email</th>
-			<th>Role</th>
-			<th>Status</th>
-			<th>Action</th>
-		</tr>
-		<c:forEach var="i" items="${listuser}" >
+	<div class="container mt-4">
+
+		<a href="<c:url value='/admin/user/insert'></c:url>" class="btn btn-primary">
+			<i class="fa-solid fa-plus"></i> Nhập mới</a><br>
+
+		<table class="table table-bordered table-striped">
+			<thead>
 			<tr>
-				<td>${i.userID}</td>
-				<td>${i.userName}</td>
-				<td>${i.password}</td>
-				<td>${i.email}</td>
-				<td>${i.role}</td>
-				<td>${i.status}</td>
-				<td><a
-					href="<c:url value="/admin/user/update?id=${i.userID}"></c:url>">
-						Update </a> <label> || </label> <a
-					href="<c:url value="/admin/user/delete?id=${i.userID}"></c:url>">
-						Delete </a>
-				</td>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Password</th>
+				<th>Email</th>
+				<th>Role</th>
+				<th>Status</th>
+				<th>Action</th>
 			</tr>
-		</c:forEach>
-	</table>
+			</thead>
+			<tbody>
+			<c:forEach var="user" items="${users}" >
+				<tr>
+					<td>${user.userID}</td>
+					<td>${user.userName}</td>
+					<td>${user.password}</td>
+					<td>${user.email}</td>
+					<td>${user.role}</td>
+					<td>${user.status}</td>
+					<td>
+						<a href="<c:url value='/admin/user/update?userID=${user.userID}'></c:url>
+							"class="btn btn-warning btn-sm"> <i class="fa-solid fa-pen-to-square"></i> Cập nhật</a>
+						<a href="<c:url value='/admin/user/delete?userID=${user.userID}'></c:url>
+							"class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash"></i> Xóa</a>
+					</td>
+				</tr>
+			</c:forEach>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>

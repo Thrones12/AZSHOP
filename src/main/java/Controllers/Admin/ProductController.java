@@ -68,19 +68,6 @@ public class ProductController extends HttpServlet {
 		}
 	}
 
-	private void postUpdate(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		Product product = new Product();
-		try {
-			BeanUtils.populate(product, req.getParameterMap());
-			proService.Update(product);
-			req.setAttribute("message", "Chinh sua thanh cong");
-		}catch (Exception e) {
-			e.printStackTrace();
-			req.setAttribute("error", "Chinh sua that bai");
-		}
-		resp.sendRedirect(req.getContextPath() + "/admin/product/list");
-	}
-
 	private void postInsert(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
@@ -95,4 +82,18 @@ public class ProductController extends HttpServlet {
 		}
 		resp.sendRedirect(req.getContextPath()+"/admin/product/list");
 	}
+
+	private void postUpdate(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		Product product = new Product();
+		try {
+			BeanUtils.populate(product, req.getParameterMap());
+			proService.Update(product);
+			req.setAttribute("message", "Chinh sua thanh cong");
+		}catch (Exception e) {
+			e.printStackTrace();
+			req.setAttribute("error", "Chinh sua that bai");
+		}
+		resp.sendRedirect(req.getContextPath() + "/admin/product/list");
+	}
+
 }

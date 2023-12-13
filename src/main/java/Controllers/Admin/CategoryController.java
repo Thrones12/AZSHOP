@@ -16,7 +16,7 @@ import Models.Category;
 import Services.ICategoryService;
 import Services.Impl.CategoryService;
 
-@WebServlet(urlPatterns = { "/category-list", "/admin/category/insert", "/admin/category/update", "/admin/category/delete" })
+@WebServlet(urlPatterns = { "/admin/category/list", "/admin/category/insert", "/admin/category/update", "/admin/category/delete" })
 public class CategoryController extends HttpServlet{
 	
 	ICategoryService CategoryService = new CategoryService();
@@ -26,7 +26,7 @@ public class CategoryController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String url = req.getRequestURI().toString();
-		if(url.contains("category-list")) {
+		if(url.contains("list")) {
 			findAll(req, resp);
 		}
 		else if(url.contains("insert")) {
@@ -56,7 +56,7 @@ public class CategoryController extends HttpServlet{
 			e.printStackTrace();
 			req.setAttribute("error", "Xoa that bai");
 		}
-		resp.sendRedirect(req.getContextPath()+"/category-list");
+		resp.sendRedirect(req.getContextPath()+"/admin/category/list");
 	}
 
 	private void findAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -90,7 +90,7 @@ public class CategoryController extends HttpServlet{
 			e.printStackTrace();
 			req.setAttribute("error", "Chinh sua that bai");
 		}
-		resp.sendRedirect(req.getContextPath() + "/category-list");
+		resp.sendRedirect(req.getContextPath() + "/admin/category/list");
 	}
 
 
@@ -107,7 +107,7 @@ public class CategoryController extends HttpServlet{
 			e.printStackTrace();
 			req.setAttribute("error", "Them that bai");
 		}
-		resp.sendRedirect(req.getContextPath() + "/category-list");
+		resp.sendRedirect(req.getContextPath() + "/admin/category/list");
 	}	
 	
 }

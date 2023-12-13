@@ -7,20 +7,22 @@
     <title>Insert title here</title>
 </head>
 <body>
+<div class="container mt-4">
     <form action="insert" method="POST">
-        <div>
-            <label for="category_id">Category ID:</label><br>
-            <input type="text" id="category_id" name="category_id" /><br>
+        <div class="form-group">
+            <label for="category_id">Category ID:</label>
+            <input type="text" id="category_id" name="category_id" class="form-control">
         </div>
-        
-        <div>
-            <label for="category_name">Name:</label><br>
-            <input type="text" id="category_name" name="category_name" /><br>
+
+        <div class="form-group">
+            <label for="category_name">Name:</label>
+            <input type="text" id="category_name" name="category_name" class="form-control">
         </div>
-        
-        <div>
-            <input type="submit" value="Category Insert" />
+
+        <div class="form-group">
+            <input type="submit" value="Category Insert" class="btn btn-primary">
         </div>
     </form>
+</div>
 </body>
 </html>

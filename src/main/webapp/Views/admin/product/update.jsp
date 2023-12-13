@@ -8,35 +8,57 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div class="container mt-4">
 	<form action="update" method="POST">
-		<label>ID: </label><br>
-		<input type="text" name="product_id" value="${product.product_id}" readonly="readonly"/><br>
-		
-		<Label>Name</Label><br>
-		<input type="text" name="product_name" value="${product.product_name }"/><br>
-		
-		<Label>Description</Label><br>
-		<textarea name="description" rows="3" cols="30" >${product.description}</textarea><br> 
-		
-		<Label>Price</Label><br>
-		<input type="text" name="price" value="${product.price}"/><br>
-		
-		<Label>Image</Label><br>
-		<input type="text" name="image" value="${product.image}"/><br>
-		
-		<Label>Category ID</Label><br>
-		<input type="text" name="category_id" value="${product.category_id}" readonly="readonly"/><br>
-		
-		<Label>Seller ID</Label><br>
-		<input type="text" name="seller_id" value="${product.seller_id}"/><br>
-		
-		<Label>Amount</Label><br>
-		<input type="text" name="amount" value="${product.amount}"/><br>
-		
-		<Label>Stoke</Label><br>
-		<input type="text" name="stoke" value="${product.stoke}"/><br>
-		
-		<input type="submit" value="Product update"/>
+		<div class="form-group">
+			<label>ID: </label><br>
+			<input type="text" name="product_id" value="${product.product_id}" readonly="readonly" class="form-control">
+		</div>
+
+		<div class="form-group">
+			<Label>Name</Label><br>
+			<input type="text" name="product_name" value="${product.product_name }" class="form-control">
+		</div>
+
+		<div class="form-group">
+			<Label>Description</Label><br>
+			<textarea class="form-control" name="description" rows="3" cols="30" >${product.description} </textarea>
+		</div>
+
+		<div class="form-group">
+			<Label>Price</Label><br>
+			<input type="text" name="price" value="${product.price}" class="form-control">
+		</div>
+
+		<div class="form-group">
+			<Label>Image</Label><br>
+			<input type="text" name="image" value="${product.image}" class="form-control">
+		</div>
+
+		<div class="form-group">
+			<Label>Category ID</Label><br>
+			<input type="text" name="category_id" value="${product.category_id}" readonly="readonly" class="form-control">
+		</div>
+
+		<div class="form-group">
+			<Label>Seller ID</Label><br>
+			<input type="text" name="seller_id" value="${product.supplier_id}" class="form-control">
+		</div>
+
+		<div class="form-group">
+			<Label>Amount</Label><br>
+			<input type="text" name="amount" value="${product.stock_quantity}" class="form-control">
+		</div>
+
+		<div class="form-group">
+			<Label>Stoke</Label><br>
+			<input type="text" name="stoke" value="${product.sold_quantity}" class="form-control">
+		</div>
+
+		<div class="form-group">
+			<input type="submit" value="Product update" class="btn btn-primary">
+		</div>
 	</form>
+	</div>
 </body>
 </html>
