@@ -2,9 +2,11 @@ package Controllers.Web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -65,52 +67,63 @@ public class HomeController extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 		int existingCount = 0;
 		String existingCountParam = req.getParameter("exists");
-		if (existingCountParam != null) {
+		String indexPage = req.getParameter("indexPage");
+		if (existingCountParam != null && indexPage != null) {
 			existingCount = Integer.parseInt(existingCountParam);
 		}
-		List<Product> products;
-		if (Integer.parseInt(req.getParameter("category_id")) != 0) {
-			products = proService.findTop3ByCategory(Integer.parseInt(req.getParameter("category_id")), existingCount);
-		} else if (Integer.parseInt(req.getParameter("supplier_id")) != 0) {
-			products = proService.findTop3BySupplier(Integer.parseInt(req.getParameter("supplier_id")), existingCount);
-		} else if (Integer.parseInt(req.getParameter("end_range")) != 0) {
-			products = proService.findTop3ByPrice(Integer.parseInt(req.getParameter("start_range")),
-					Integer.parseInt(req.getParameter("end_range")), existingCount);
-		} else {
-			products = proService.findTop3(existingCount);
-			System.out.println(existingCount);
+		if (existingCount < 15) {
+			List<Product> products;
+			if (Integer.parseInt(req.getParameter("category_id")) != 0) {
+				products = proService.findTop3ByCategory(Integer.parseInt(req.getParameter("category_id")),
+						existingCount + (Integer.parseInt(indexPage) - 1) * 15);
+			} else if (Integer.parseInt(req.getParameter("supplier_id")) != 0) {
+				products = proService.findTop3BySupplier(Integer.parseInt(req.getParameter("supplier_id")),
+						existingCount + (Integer.parseInt(indexPage) - 1) * 15);
+			} else if (Integer.parseInt(req.getParameter("end_range")) != 0) {
+				products = proService.findTop3ByPrice(Integer.parseInt(req.getParameter("start_range")),
+						Integer.parseInt(req.getParameter("end_range")),
+						existingCount + (Integer.parseInt(indexPage) - 1) * 15);
+			} else {
+				products = proService.findTop3(existingCount + (Integer.parseInt(indexPage) - 1) * 15);
+			}
+
+			HttpSession session = req.getSession();
+			User u = (User) session.getAttribute("account");
+			int user_id = 0;
+			if (u != null) {
+				user_id = u.getUserID();
+				req.setAttribute("user_id", user_id);
+			}
+
+			PrintWriter out = resp.getWriter();
+			for (Product product : products) {
+				NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+				String giaSanPhamVND = currencyFormat.format(product.getPrice());
+				out.println("<div class=\"productAjax col-sm-4\">\r\n"
+						+ "									<div class=\" product-image-wrapper single-products\">\r\n"
+						+ "										<div class=\"productinfo text-center\">\r\n"
+						+ "											<a\r\n"
+						+ "												href=\"/AZSHOP/product-detail?product_id="
+						+ product.getProduct_id() + "\">\r\n"
+						+ "												<img style=\"width: auto; height: 134px\"\r\n"
+						+ "												src=\"templates/images/product/"
+						+ product.getImage() + "\" alt=\"\" />\r\n"
+						+ "											</a>\r\n"
+						+ "											<h2>\r\n"
+						+ "											"+ giaSanPhamVND +"\r\n"
+						+ "											</h2>\r\n"
+						+ "											<p>" + product.getProduct_name() + "</p>\r\n"
+						+ "											<button type=\"button\" class=\"btn btn-default add-to-cart\"\r\n"
+						+ "												id=\"addToCart\"\r\n"
+						+ "												onclick=\"clickToAddCart(" + user_id + ", "
+						+ product.getProduct_id() + ", 1)\">\r\n"
+						+ "												<i class=\"fa fa-shopping-cart\"></i>Add to cart\r\n"
+						+ "											</button>\r\n" + "\r\n"
+						+ "										</div>\r\n"
+						+ "									</div>\r\n" + "								</div>");
+			}
 		}
 
-		HttpSession session = req.getSession();
-		User u = (User) session.getAttribute("account");
-		int user_id = 0;
-		if (u != null) {
-			user_id = u.getUserID();
-			req.setAttribute("user_id", user_id);
-		}
-
-		PrintWriter out = resp.getWriter();
-		for (Product product : products) {
-			out.println("<div class=\"productAjax col-sm-4\">\r\n"
-					+ "									<div class=\" product-image-wrapper single-products\">\r\n"
-					+ "										<div class=\"productinfo text-center\">\r\n"
-					+ "											<a\r\n"
-					+ "												href=\"/AZSHOP/product-detail?product_id="
-					+ product.getProduct_id() + "\">\r\n"
-					+ "												<img style=\"width: auto; height: 134px\"\r\n"
-					+ "												src=\"templates/images/product/"
-					+ product.getImage() + "\" alt=\"\" />\r\n" + "											</a>\r\n"
-					+ "											<h2>$" + product.getPrice() + "</h2>\r\n"
-					+ "											<p>" + product.getProduct_name() + "</p>\r\n"
-					+ "											<button type=\"button\" class=\"btn btn-default add-to-cart\"\r\n"
-					+ "												id=\"addToCart\"\r\n"
-					+ "												onclick=\"clickToAddCart(" + user_id + ", "
-					+ product.getProduct_id() + ", 1)\">\r\n"
-					+ "												<i class=\"fa fa-shopping-cart\"></i>Add to cart\r\n"
-					+ "											</button>\r\n" + "\r\n"
-					+ "										</div>\r\n" + "									</div>\r\n"
-					+ "								</div>");
-		}
 	}
 
 	private void getProductDetail(HttpServletRequest req, HttpServletResponse resp)
@@ -220,6 +233,17 @@ public class HomeController extends HttpServlet {
 	private void getHome(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		resp.setCharacterEncoding("UTF-8");
+		// Handle index page
+		String indexPage = req.getParameter("indexPage");
+		if (indexPage == null) {
+			indexPage = "1";
+		}
+		int indexp = Integer.parseInt(indexPage);
+		int countP = proService.countAllProduct();
+		int endPage = countP/15;
+		if (countP % 15 != 0) {
+			endPage++;
+		}
 		// Get user id
 		HttpSession session = req.getSession();
 		User u = (User) session.getAttribute("account");
@@ -240,6 +264,7 @@ public class HomeController extends HttpServlet {
 		vpService.CleanTable();
 
 		// Get product list
+		List<Product> all_pro;
 		List<Product> list_pro;
 		int category_id = 0;
 		int supplier_id = 0;
@@ -270,7 +295,7 @@ public class HomeController extends HttpServlet {
 			}
 			list_pro = proService.findTop3ByPrice(start_range, end_range, 0);
 		} else {
-			list_pro = proService.findTop3(0);
+			list_pro = proService.findTop3((indexp-1)*15);
 		}
 		if (list_pro.size() == 0) {
 			req.setAttribute("message", "Không có sản phẩm");
@@ -282,6 +307,8 @@ public class HomeController extends HttpServlet {
 		req.setAttribute("supplier_id", supplier_id);
 		req.setAttribute("start_range", start_range);
 		req.setAttribute("end_range", end_range);
+		req.setAttribute("indexp", indexp);
+		req.setAttribute("endPage", endPage);
 
 		// Render page
 		req.getRequestDispatcher("Views/web/home.jsp").forward(req, resp);

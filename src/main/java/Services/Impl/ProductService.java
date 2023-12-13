@@ -7,8 +7,9 @@ import DAO.Impl.ProductDAO;
 import Models.Product;
 import Services.IProductService;
 
-public class ProductService implements IProductService{
+public class ProductService implements IProductService {
 	IProductDAO proDAO = new ProductDAO();
+
 	@Override
 	public List<Product> findAll() {
 		return proDAO.findAll();
@@ -18,7 +19,7 @@ public class ProductService implements IProductService{
 	public List<Product> findTop3(int offset) {
 		return proDAO.findTop3(offset);
 	}
-	
+
 	@Override
 	public void Insert(Product product) {
 		proDAO.Insert(product);
@@ -60,11 +61,6 @@ public class ProductService implements IProductService{
 	}
 
 	@Override
-	public int countByCategory(int category_id) {
-		return proDAO.countByCategory(category_id);
-	}
-
-	@Override
 	public List<Product> findTop3ByCategory(int category_id, int offset) {
 		return proDAO.findTop3ByCategory(category_id, offset);
 	}
@@ -82,5 +78,15 @@ public class ProductService implements IProductService{
 	@Override
 	public List<Product> findBestSellingProdut() {
 		return proDAO.findBestSellingProdut();
+	}
+
+	@Override
+	public int countByCategory(int category_id) {
+		return proDAO.countByCategory(category_id);
+	}
+
+	@Override
+	public int countAllProduct() {
+		return proDAO.countAllProduct();
 	}
 }

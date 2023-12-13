@@ -455,4 +455,23 @@ public class ProductDAO implements IProductDAO {
 		}
 	}
 
+	@Override
+	public int countAllProduct() {
+		int count = 0;
+		String query = "SELECT count(*) as count FROM azshop.products";
+		try {
+			conn = new DBConnection().getConnection();
+			ps = conn.prepareStatement(query);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				count = rs.getInt("count");
+			}
+			conn.close();
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
 }

@@ -45,6 +45,19 @@
 							</c:forEach>
 						</div>
 					</div>
+					<div class="pagination-area">
+						<ul class="pagination">
+							<c:if test="${indexp>1 }">
+								<li><a href=""><i class="fa fa-angle-double-left"></i></a></li>
+							</c:if>
+							<c:forEach begin="1" end="${endPage}" var="i">
+								<li><a href="${pageContext.request.contextPath}/home?indexPage=${i}" class='${indexp==i?"active":""}'>${i }</a></li>
+							</c:forEach>							
+							<c:if test="${indexp<endPage }">
+								<li><a href=""><i class="fa fa-angle-double-right"></i></a></li>
+							</c:if>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -72,7 +85,8 @@
 					category_id: ${category_id},
 					supplier_id: ${supplier_id},
 					start_range: ${start_range},
-					end_range  : ${end_range}
+					end_range  : ${end_range},
+					indexPage  : ${indexp}
 				},
 				success : function(data) {
 					$("#content").append(data);
