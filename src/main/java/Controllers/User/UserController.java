@@ -79,6 +79,7 @@ public class UserController extends HttpServlet {
 			int userid = u.getUserID();
 			List<Bill> bills = billService.findByUserID(userid);
 	        req.setAttribute("bills", bills);
+	        System.out.println(bills.toString());
 			req.getRequestDispatcher("/Views/user/history.jsp").forward(req, resp);
 		} else {
         	resp.sendRedirect(req.getContextPath() + "/user/login");

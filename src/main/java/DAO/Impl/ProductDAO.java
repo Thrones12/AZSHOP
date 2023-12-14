@@ -35,7 +35,6 @@ public class ProductDAO implements IProductDAO {
 				pro.setSupplier_id(rs.getInt("supplier_id"));
 				pro.setStock_quantity(rs.getInt("stock_quantity"));
 				pro.setSold_quantity(rs.getInt("sold_quantity"));
-				pro.setRating(rs.getInt("rating"));
 				list_pro.add(pro);
 			}
 			conn.close();
@@ -48,7 +47,7 @@ public class ProductDAO implements IProductDAO {
 
 	@Override
 	public void Insert(Product product) {
-		String query = "INSERT INTO products (product_name, description, price, image, images, category_id, supplier_id, stock_quantity, sold_quantity, rating)\r\n"
+		String query = "INSERT INTO products (product_name, description, price, image, images, category_id, supplier_id, stock_quantity, sold_quantity)\r\n"
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		try {
 			conn = new DBConnection().getConnection();
@@ -62,7 +61,6 @@ public class ProductDAO implements IProductDAO {
 			ps.setInt(7, product.getSupplier_id());
 			ps.setInt(8, product.getStock_quantity());
 			ps.setInt(9, product.getSold_quantity());
-			ps.setInt(10, product.getRating());
 			ps.executeUpdate();
 			conn.close();
 		} catch (Exception e) {
@@ -73,7 +71,7 @@ public class ProductDAO implements IProductDAO {
 	@Override
 	public void Update(Product product) {
 		String query = "UPDATE products SET product_name=?, description=?, price=?, image=?, images=?,"
-				+ "category_id=?, supplier_id=?, stock_quantity=?, sold_quantity=?, rating=?"
+				+ "category_id=?, supplier_id=?, stock_quantity=?, sold_quantity=?"
 				+ " WHERE product_id = ? ;";
 		try {
 			conn = new DBConnection().getConnection();
@@ -87,8 +85,8 @@ public class ProductDAO implements IProductDAO {
 			ps.setInt(7, product.getSupplier_id());
 			ps.setInt(8, product.getStock_quantity());
 			ps.setInt(9, product.getSold_quantity());
-			ps.setInt(10, product.getRating());
-			ps.setInt(11, product.getProduct_id());
+
+			ps.setInt(10, product.getProduct_id());
 			ps.executeUpdate();
 			conn.close();
 		} catch (Exception e) {
@@ -130,7 +128,6 @@ public class ProductDAO implements IProductDAO {
 				pro.setSupplier_id(rs.getInt("supplier_id"));
 				pro.setStock_quantity(rs.getInt("stock_quantity"));
 				pro.setSold_quantity(rs.getInt("sold_quantity"));
-				pro.setRating(rs.getInt("rating"));
 			}
 			conn.close();
 			return pro;
@@ -162,7 +159,6 @@ public class ProductDAO implements IProductDAO {
 				pro.setSupplier_id(rs.getInt("supplier_id"));
 				pro.setStock_quantity(rs.getInt("stock_quantity"));
 				pro.setSold_quantity(rs.getInt("sold_quantity"));
-				pro.setRating(rs.getInt("rating"));
 				list_pro.add(pro);
 			}
 			conn.close();
@@ -195,7 +191,6 @@ public class ProductDAO implements IProductDAO {
 				pro.setSupplier_id(rs.getInt("supplier_id"));
 				pro.setStock_quantity(rs.getInt("stock_quantity"));
 				pro.setSold_quantity(rs.getInt("sold_quantity"));
-				pro.setRating(rs.getInt("rating"));
 				list_pro.add(pro);
 			}
 			conn.close();
@@ -227,7 +222,6 @@ public class ProductDAO implements IProductDAO {
 				pro.setSupplier_id(rs.getInt("supplier_id"));
 				pro.setStock_quantity(rs.getInt("stock_quantity"));
 				pro.setSold_quantity(rs.getInt("sold_quantity"));
-				pro.setRating(rs.getInt("rating"));
 				list_pro.add(pro);
 			}
 			conn.close();
@@ -260,7 +254,6 @@ public class ProductDAO implements IProductDAO {
 				pro.setSupplier_id(rs.getInt("supplier_id"));
 				pro.setStock_quantity(rs.getInt("stock_quantity"));
 				pro.setSold_quantity(rs.getInt("sold_quantity"));
-				pro.setRating(rs.getInt("rating"));
 				list_pro.add(pro);
 			}
 			conn.close();
@@ -292,7 +285,6 @@ public class ProductDAO implements IProductDAO {
 				pro.setSupplier_id(rs.getInt("supplier_id"));
 				pro.setStock_quantity(rs.getInt("stock_quantity"));
 				pro.setSold_quantity(rs.getInt("sold_quantity"));
-				pro.setRating(rs.getInt("rating"));
 				list_pro.add(pro);
 			}
 			conn.close();
@@ -325,7 +317,6 @@ public class ProductDAO implements IProductDAO {
 				pro.setSupplier_id(rs.getInt("supplier_id"));
 				pro.setStock_quantity(rs.getInt("stock_quantity"));
 				pro.setSold_quantity(rs.getInt("sold_quantity"));
-				pro.setRating(rs.getInt("rating"));
 				list_pro.add(pro);
 			}
 			conn.close();
@@ -358,7 +349,6 @@ public class ProductDAO implements IProductDAO {
 				pro.setSupplier_id(rs.getInt("supplier_id"));
 				pro.setStock_quantity(rs.getInt("stock_quantity"));
 				pro.setSold_quantity(rs.getInt("sold_quantity"));
-				pro.setRating(rs.getInt("rating"));
 				list_pro.add(pro);
 			}
 			conn.close();
@@ -392,7 +382,6 @@ public class ProductDAO implements IProductDAO {
 				pro.setSupplier_id(rs.getInt("supplier_id"));
 				pro.setStock_quantity(rs.getInt("stock_quantity"));
 				pro.setSold_quantity(rs.getInt("sold_quantity"));
-				pro.setRating(rs.getInt("rating"));
 				list_pro.add(pro);
 			}
 			conn.close();
@@ -423,7 +412,6 @@ public class ProductDAO implements IProductDAO {
 				pro.setSupplier_id(rs.getInt("supplier_id"));
 				pro.setStock_quantity(rs.getInt("stock_quantity"));
 				pro.setSold_quantity(rs.getInt("sold_quantity"));
-				pro.setRating(rs.getInt("rating"));
 				list_pro.add(pro);
 			}
 			conn.close();

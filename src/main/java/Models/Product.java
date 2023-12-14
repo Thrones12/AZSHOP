@@ -15,15 +15,14 @@ public class Product implements Serializable {
 	private String images;
 	private int stock_quantity;
 	private int sold_quantity;
-	private int rating;
 
 	public Product() {
 		super();
 	}
 
 	public Product(int product_id, String product_name, String description, float price,
-			int category_id, int supplier_id, String image, String images, int stock_quantity, int sold_quantity,
-			int rating) {
+			int category_id, int supplier_id, String image, String images, int stock_quantity, int sold_quantity
+			) {
 		super();
 		this.product_id = product_id;
 		this.product_name = product_name;
@@ -35,7 +34,6 @@ public class Product implements Serializable {
 		this.images = images;
 		this.stock_quantity = stock_quantity;
 		this.sold_quantity = sold_quantity;
-		this.rating = rating;
 	}
 
 	@Override
@@ -43,7 +41,7 @@ public class Product implements Serializable {
 		return "Product [product_id=" + product_id + ", product_name=" + product_name + ", description=" + description
 				+ ", price=" + price + ", category_id=" + category_id + ", supplier_id="
 				+ supplier_id + ", image=" + image + ", images=" + images + ", stock_quantity=" + stock_quantity
-				+ ", sold_quantity=" + sold_quantity + ", rating=" + rating + "]";
+				+ ", sold_quantity=" + sold_quantity + "]";
 	}
 
 	public int getProduct_id() {
@@ -123,14 +121,6 @@ public class Product implements Serializable {
 
 	public void setSold_quantity(int sold_quantity) {
 		this.sold_quantity = sold_quantity;
-	}
-
-	public int getRating() {
-		return rating;
-	}
-
-	public void setRating(int rating) {
-		this.rating = rating;
 	}
 
 }
