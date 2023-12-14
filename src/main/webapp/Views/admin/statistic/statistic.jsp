@@ -73,26 +73,24 @@
             <th>Tồn kho</th>
             <th>Đã bán</th>
             <th>Doanh thu</th>
-            <th>Thời gian</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="product" items="${products}" varStatus="STT">
-            <c:forEach var="billDetail" items="${billDetails}">
-                <c:forEach var="bill" items="${bills}">
+            <c:forEach var="billDetail" items="${billDetails}" varStatus="billDetailIndex">
                     <tr>
-                        <td>${STT.index + 1}</td>
+                    <c:if test="${billDetailIndex.index eq STT.index}">
+                         <td>${STT.index + 1}</td>
                         <td>${product.product_name}</td>
                         <td>${product.category_id}</td>
                         <td>${product.supplier_id}</td>
                         <td>${product.stock_quantity}</td>
-                        <td>${product.sold_quantity}</td>
-                        <td>${billDetail.price}</td>
-                        <td>${bill.order_date}</td>
+                        <td>${billDetail.quantity}</td>
+                        <td><fmt:formatNumber value="${billDetail.price}" pattern="#,##0" />đ
+                     </c:if>
                     </tr>
                 </c:forEach>
             </c:forEach>
-        </c:forEach>
         </tbody>
     </table>
 </div>

@@ -33,7 +33,9 @@
 				<td>${STT.index+1}</td>
 				<td>${product.product_name}</td>
 				<td>${product.description}</td>
-				<td>${product.price}</td>
+				<td>
+			    <fmt:formatNumber value="${product.price}" pattern="#,##0" />đ
+			   </td>
 				<td>${product.category_id}</td>
 				<td>${product.supplier_id}</td>
 				<td>${product.image}</td>

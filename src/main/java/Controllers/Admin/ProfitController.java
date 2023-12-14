@@ -10,15 +10,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Models.Bill;
 import Models.BillDetail;
 import Services.IBillDetailService;
 import Services.Impl.BillDetailService;
 import org.apache.commons.beanutils.BeanUtils;
-
+import Services.IBillService;
+import Services.Impl.BillService;
 @WebServlet(urlPatterns = { "/admin/profit/profits", "/admin/profit/insert", "/admin/profit/update", "/admin/profit/delete"})
 public class ProfitController extends HttpServlet{
 
     IBillDetailService profitService = new BillDetailService();
+    IBillService billService = new BillService();
 
     private static final long serialVersionUID = 1L;
 
@@ -55,8 +58,12 @@ public class ProfitController extends HttpServlet{
 
     private void findAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // TODO Auto-generated method stub
+    	List<Bill> bills = billService.findAll();
+        req.setAttribute("bills", bills);
+        
         List<BillDetail> billDetails = profitService.findAll();
         req.setAttribute("billDetails", billDetails);
+        
         RequestDispatcher rd = req.getRequestDispatcher("/Views/admin/profit/profits.jsp");
         rd.forward(req, resp);
     }

@@ -26,7 +26,7 @@
       <th>ID</th>
       <th>Người mua</th>
       <th>Ngày tạo</th>
-      <th>Số lượng</th>
+      <th>Tông tiền</th>
       <th>Người nhận</th>
       <th>SĐT</th>
       <th>Địa chỉ</th>
@@ -39,7 +39,9 @@
         <td>${bill.bill_id}</td>
         <td>${bill.user_id}</td>
         <td>${bill.order_date}</td>
-        <td>${bill.total_amount}</td>
+        <td>
+    	<fmt:formatNumber value="${bill.total_amount}" pattern="#,##0" />đ
+		</td>
         <td>${bill.receiver}</td>
         <td>${bill.phone}</td>
         <td>${bill.address}</td>
