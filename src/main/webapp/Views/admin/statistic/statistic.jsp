@@ -8,31 +8,43 @@
 </head>
 <body>
 <div class="container mt-4">
-    <!-- Chart.js column graph -->
     <canvas id="profitChart" width="10%"></canvas>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js'></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Extract data for the graph from JSP variables
-            var labels = [];
-            var profits = [];
+
+            var dataMap = new Map();
+
             <c:forEach var="billDetail" items="${billDetails}">
+            
             <c:forEach var="bill" items="${bills}">
-            labels.push("${bill.order_date}");
-            profits.push(${billDetail.price});
+            
+	            var date = "${bill.order_date}";
+	            var profit = ${billDetail.price};
+	
+	            if (dataMap.has(date)) {
+	                dataMap.set(date, dataMap.get(date) + profit);
+	            } else {
+	                dataMap.set(date, profit);
+	            }
             </c:forEach>
             </c:forEach>
 
-            // Draw the bar chart using Chart.js
+            var sortedDays = Array.from(dataMap.keys()).sort();
+
+            var profits = sortedDays.map(function(date) {
+                return dataMap.get(date);
+            });
+
             var ctx = document.getElementById('profitChart').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: labels,
+                    labels: sortedDays,
                     datasets: [{
-                        label: 'Lợi nhuận ngày',
+                        label: 'Lợi nhuận ngày ($)',
                         data: profits,
-                        backgroundColor: ['red', 'green', 'blue', 'orange', 'brown'], // Add more colors as needed
+                        backgroundColor: ['green'],
                         borderColor: 'rgba(33,164,222,0.6)',
                         borderWidth: 1
                     }]
@@ -41,7 +53,7 @@
                     scales: {
                         x: {
                             type: 'category',
-                            labels: labels,
+                            labels: sortedDays,
                             title: {
                                 display: true,
                                 text: 'Ngày'
@@ -51,7 +63,7 @@
                             beginAtZero: true,
                             title: {
                                 display: true,
-                                text: 'Lợi nhuận'
+                                text: 'Lợi nhuận ($)'
                             }
                         }
                     }
@@ -59,7 +71,6 @@
             });
         });
     </script>
-
 </div><br><br>
 <div class="container mt-4">
     <table class="table table-bordered">
