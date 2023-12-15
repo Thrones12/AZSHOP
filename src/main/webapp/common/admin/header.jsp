@@ -71,9 +71,6 @@
 							<li><a
 								href="${pageContext.request.contextPath}/admin/statistic/statistic"><i
 									class="fa-solid fa-chart-simple"></i> Thống kê</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/admin/decentralization/decentralization"><i
-									class="fas fa-eye"></i> Phân quyền</a></li>
 							<li><a href="${pageContext.request.contextPath}/user/logout"><i
 									class="fa fa-unlock"></i> Đăng xuất</a></li>
 						</ul>
