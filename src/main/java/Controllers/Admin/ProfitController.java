@@ -1,6 +1,7 @@
 package Controllers.Admin;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -63,7 +64,6 @@ public class ProfitController extends HttpServlet{
         
         List<BillDetail> billDetails = profitService.findAll();
         req.setAttribute("billDetails", billDetails);
-        
         RequestDispatcher rd = req.getRequestDispatcher("/Views/admin/profit/profits.jsp");
         rd.forward(req, resp);
     }

@@ -76,9 +76,6 @@
 										href="${pageContext.request.contextPath}/user/account"><i
 											class="fa fa-user"></i> Tài khoản</a></li>
 									<li><a
-										href="${pageContext.request.contextPath}/user/wishlist"><i
-											class="fa fa-star"></i> Yêu thích</a></li>
-									<li><a
 										href="${pageContext.request.contextPath}/user/history"><i
 											class="fa fa-crosshairs"></i> Lịch sử</a></li>
 									<li><a href="${pageContext.request.contextPath}/user/cart"><i

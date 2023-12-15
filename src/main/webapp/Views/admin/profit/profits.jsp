@@ -20,7 +20,7 @@
 		<c:set var="totalPrice" value="0" />
 
 
-		 <a href="<c:url value='/admin/profit/insert'></c:url>"
+		<a href="<c:url value='/admin/profit/insert'></c:url>"
 			class="btn btn-primary"> <i class="fa-solid fa-plus"></i> Nhập
 			mới
 		</a><br>
@@ -64,21 +64,39 @@
 					<%-- Accumulate values --%>
 					<c:set var="totalQuantity" value="${totalQuantity + bill.quantity}" />
 					<c:set var="totalPrice" value="${totalPrice + bill.price}" />
+					<%-- Display totals when processing the last item --%>
+					<c:if test="${loopStatus.last}">
+						<tr>
+							<td colspan="4"><strong>Tổng số sản phẩm bán ra:
+									${totalQuantity}</strong></td>
+							<td colspan="5"><strong>Tổng doanh thu: <fmt:formatNumber
+										value="${totalPrice}" pattern="#,##0" />đ
+							</strong></td>
+							<td></td>
+						</tr>
+					</c:if>
+
 				</c:forEach>
-				<%-- Display totals when processing the last item --%>
-				<c:if test="${loopStatus.last}">
-					<tr>
-						<td colspan="4"><strong>Tổng số sản phẩm bán ra:
-								${totalQuantity}</strong></td>
-						<td colspan="5"><strong>Tổng doanh thu: <fmt:formatNumber
-									value="${totalPrice}" pattern="#,##0" />đ
-						</strong></td>
-						<td></td>
-					</tr>
-				</c:if>
 			</tbody>
 		</table>
 	</div>
-	
+	<input type="text" id="datepicker">
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			flatpickr("#datetimepicker", {
+				enableTime : true, // Cho phép chọn giờ và phút
+				dateFormat : "d/m/Y H:i", // Định dạng ngày tháng và giờ
+				time_24hr : true
+			// Sử dụng định dạng giờ 24
+			});
+		});
+	</script>
+
+	<!-- Thư viện Flatpickr CSS và JS -->
+	<link rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 </body>
 </html>

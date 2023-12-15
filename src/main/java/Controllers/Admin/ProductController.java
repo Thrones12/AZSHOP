@@ -84,6 +84,8 @@ public class ProductController extends HttpServlet {
 	}
 
 	private void postUpdate(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
 		Product product = new Product();
 		try {
 			BeanUtils.populate(product, req.getParameterMap());

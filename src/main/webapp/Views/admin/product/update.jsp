@@ -41,8 +41,8 @@
 		</div>
 
 		<div class="form-group">
-			<Label>Seller ID</Label><br>
-			<input type="text" name="seller_id" value="${product.supplier_id}" class="form-control">
+			<Label>Supplier ID</Label><br>
+			<input type="text" name="supplier_id" value="${product.supplier_id}" class="form-control">
 		</div>
 
 		<div class="form-group">
